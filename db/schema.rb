@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_163933) do
+ActiveRecord::Schema.define(version: 2020_06_10_200506) do
 
   create_table "items", force: :cascade do |t|
-    t.integer "type"
     t.string "name"
+    t.integer "item_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_163933) do
   end
 
   create_table "npcs", force: :cascade do |t|
-    t.integer "type"
+    t.integer "npc_type"
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

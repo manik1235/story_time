@@ -69,6 +69,6 @@ class NpcsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def npc_params
-      params.require(:npc).permit(:type, :name)
+      params.require(:npc).permit(:npc_type, :name)
     end
 end

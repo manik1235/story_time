@@ -8,7 +8,7 @@ class AddLinksToWelcome < ActiveRecord::Migration[6.0]
     )
 
     resources.each do |resource|
-      Welcome.new(link: resource, title: resource.titleize).save
+      Welcome.new(path: resource, title: resource.titleize).save
     end
   end
 

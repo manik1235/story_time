@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  root "welcomes#index"
+
+  resources :welcomes
   resources :items
   resources :users
   resources :npcs

@@ -6,7 +6,10 @@ application up and running.
 Things you may want to cover:
 
 * Ruby version
-2.6.5
+2.6.6
+
+* Base Docker image
+[Dockerhub](https://hub.docker.com/_/ruby/)
 
 * System dependencies
 rails
@@ -23,7 +26,12 @@ bundler
 
 * Services (job queues, cache servers, search engines, etc.)
 
+* Build instructions
+docker build --rm=true -t story_time .
+
 * Deployment instructions
+docker run -p -it story_time
+Access on localhost:35001
 
 * ...
 

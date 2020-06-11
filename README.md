@@ -26,14 +26,21 @@ bundler
 
 * Services (job queues, cache servers, search engines, etc.)
 
+### Docker
 * Build instructions
-docker build --rm=true -t story_time .
+docker build -t story_time .
 
 * Deployment instructions
 docker run -p -it story_time
-Access on localhost:35001
 
-* ...
+### Docker Compose
+* Build and deploy instructions
+docker-compose up -d
+
+### Access
+* Access UI on localhost:35001
+* Access console with
+docker-compose exec rails c
 
 # Development Ideas
 [D&D API](http://dnd5eapi.co)

@@ -7,12 +7,10 @@ RUN bundle config --global frozen 1 path vendor/bundle # For dev
 
 WORKDIR /app
 
-COPY Gemfile Gemfile.lock ./
+COPY . .
 RUN apt-get update
 RUN apt-get -y install yarn
 RUN bundle install
-
-COPY . .
 
 CMD rails s -p 35001 -b 0.0.0.0
 

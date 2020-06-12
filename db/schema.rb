@@ -10,7 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_220411) do
+ActiveRecord::Schema.define(version: 2020_06_12_005908) do
+
+  create_table "episode_hexes", force: :cascade do |t|
+    t.integer "episode_id"
+    t.integer "hex_id"
+    t.index ["episode_id"], name: "index_episode_hexes_on_episode_id"
+    t.index ["hex_id"], name: "index_episode_hexes_on_hex_id"
+  end
+
+  create_table "episodes", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.integer "number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "hexes", force: :cascade do |t|
+    t.string "name"
+    t.integer "x"
+    t.integer "y"
+    t.integer "z"
+    t.string "background"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "items", force: :cascade do |t|
     t.string "name"

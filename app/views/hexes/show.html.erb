@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @hex.name %>
+</p>
+
+<p>
+  <strong>X:</strong>
+  <%= @hex.x %>
+</p>
+
+<p>
+  <strong>Y:</strong>
+  <%= @hex.y %>
+</p>
+
+<p>
+  <strong>Z:</strong>
+  <%= @hex.z %>
+</p>
+
+<p>
+  <strong>Background:</strong>
+  <%= @hex.background %>
+</p>
+
+<p>
+  <strong>Episodes featuring this hex:</strong>
+  <% if @hex.episodes.any? %>
+    <ul>
+      <% @hex.episodes.find_each do |episode| %>
+        <br><li><%= link_to "#{episode.number}: #{episode.name}", episode_path(episode) %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <br>No episodes feature this hex.
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_hex_path(@hex) %> |
+<%= link_to 'Back', hexes_path %>

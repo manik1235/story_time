@@ -1,0 +1,7 @@
+version: '3.7'
+
+services:
+  app:
+    image: manik1235/story_time:dev
+    ports:
+      - 35001:35001

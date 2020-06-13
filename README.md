@@ -53,7 +53,8 @@ docker-compose exec rails c
 
 ### Continuous Build
 * [Dockerhub image](https://hub.docker.com/repository/docker/manik1235/story_time)
-* Pushes (or changes?) to the `master` branch automatically trigger a docker image build.
+* Pushes (or changes?) to the `master` branch automatically trigger a docker image build with tag `latest`
+* Pushes (or changes?) to the `dev` branch automatically trigger a docker image build with the tag `dev`
 
 # Development Ideas
 [D&D API](http://dnd5eapi.co)

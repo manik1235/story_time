@@ -2,9 +2,6 @@ version: '3.7'
 
 services:
   app:
-    build: .
+    image: manik1235/story_time:latest
     ports:
       - 35001:35001
-    # Perhaps this could be used for hot reloading?
-    # volumes:
-    #  .:/app

@@ -11,6 +11,7 @@ COPY . .
 RUN apt-get update
 RUN apt-get -y install yarn
 RUN bundle install
+RUN rails db:migrate
 
 CMD rails s -p 35001 -b 0.0.0.0
 

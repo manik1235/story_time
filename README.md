@@ -44,6 +44,10 @@ docker-compose up -d
 * Access console with
 docker-compose exec rails c
 
+### Security Vulnerability Scans
+* https://dashboard.guardrails.io/gh/manik1235
+* Scans on each PR, and leaves comments for security issues
+
 ### Continuous Build
 * [Dockerhub image](https://hub.docker.com/repository/docker/manik1235/story_time)
 * Pushes (or changes?) to the `master` branch automatically trigger a docker image build.

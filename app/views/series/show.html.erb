@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @series.name %>
+</p>
+
+<p>
+  <b>Episodes</b>
+  <% if @series.episodes %>
+    <% @series.episodes.find_each do |episode| %>
+      <ol>
+        <li><%= "#{episode.number}: #{episode.name}" %></li>
+      </ol>
+    <% end %>
+  <% end %>
+
+<%= link_to 'Edit', edit_series_path(@series) %> |
+<%= link_to 'Back', series_index_path %>

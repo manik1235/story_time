@@ -44,6 +44,9 @@ docker-compose up -d
 * Access console with
 docker-compose exec rails c
 
+### Automated Code Quality and Style review
+* https://houndci.com/
+
 ### Security Vulnerability Scans
 * https://dashboard.guardrails.io/gh/manik1235
 * Scans on each PR, and leaves comments for security issues

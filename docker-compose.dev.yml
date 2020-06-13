@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  app:
+    image: manik1235/story_time:dev
+    ports:
+      - '35002:35002'
+  webpacker:
+    image: manik1235/story_time:dev
+    environment:
+      - NODE_ENV=development
+      - RAILS_ENV=development
+      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
+    command: ./bin/webpack-dev-server
+    ports:
+      - '35003:35003'

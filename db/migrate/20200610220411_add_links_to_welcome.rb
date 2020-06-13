@@ -1,18 +1,18 @@
 class AddLinksToWelcome < ActiveRecord::Migration[6.0]
-  def up
-    resources = %w(
-      items
-      maps
-      npcs
-      users
-    )
+  #def up
+  #  resources = %w(
+  #    items
+  #    maps
+  #    npcs
+  #    users
+  #  )
 
-    resources.each do |resource|
-      Welcome.new(path: resource, title: resource.titleize).save
-    end
-  end
+  #  resources.each do |resource|
+  #    Welcome.new(path: resource, title: resource.titleize).save
+  #  end
+  #end
 
-  def down
-    Welcome.destroy_all
-  end
+  #def down
+  #  Welcome.destroy_all
+  #end
 end

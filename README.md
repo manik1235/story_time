@@ -1,4 +1,6 @@
-# Seriously High Fantasy
+# Story Time
+
+A dnd website thing
 
 This README would normally document whatever steps are necessary to get the
 application up and running.

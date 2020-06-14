@@ -1,5 +1,13 @@
 <p id="notice"><%= notice %></p>
 
+<div>
+  <div class="js-hex-container" data-id="<%= @hex.id %>">
+    <canvas id="myCanvas" width="100" height="100">
+      Your browser does not support the canvas element.
+    </canvas>
+  </div>
+</div>
+
 <p>
   <strong>Name:</strong>
   <%= @hex.name %>

@@ -16,6 +16,11 @@
 </p>
 
 <p>
+  <strong>Series:</strong>
+  <%= link_to @episode.series_name, series_path(@episode.series) %>
+</p>
+
+<p>
   <strong>Hexes featured in this episode:</strong>
   <% if @episode.hexes.any? %>
     <ul>

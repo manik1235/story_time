@@ -10,10 +10,11 @@
   <% if @series.episodes %>
     <% @series.episodes.find_each do |episode| %>
       <ol>
-        <li><%= "#{episode.number}: #{episode.name}" %></li>
+        <li><%= "#{episode.number}: " %><%= link_to episode.name, episode_path(episode) %></li>
       </ol>
     <% end %>
   <% end %>
+</p>
 
 <%= link_to 'Edit', edit_series_path(@series) %> |
 <%= link_to 'Back', series_index_path %>

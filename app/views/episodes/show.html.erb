@@ -17,7 +17,7 @@
 
 <p>
   <strong>Series:</strong>
-  <%= @episode.series %>
+  <%= link_to @episode.series_name, series_path(@episode.series) %>
 </p>
 
 <p>

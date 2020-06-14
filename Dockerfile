@@ -21,7 +21,7 @@ RUN apt-get install -y yarn
 RUN bundle install
 # Create the public/packs, etc folder
 RUN rails webpacker:install
-RUN rails db:migrate
+RUN rails db:setup
 
 CMD rails s -p 35001 -b 0.0.0.0
 

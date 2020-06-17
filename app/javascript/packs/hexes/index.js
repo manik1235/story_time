@@ -1,3 +1,6 @@
+const images = require.context('../../images', true)
+const imagePath = (name) => images(name, true)
+
 $(document).ready(function() {
   createHex()
 })
@@ -14,7 +17,13 @@ function getHexInfo() {
     dataType: "json",
     url: hexContainer.data('id')
   }).done(function(data) {
-    console.log(data)
+    var hexImage = imagePath('./hexes/' + data.background)
+    var html = `
+      <div>
+        <p><img src=${hexImage} alt="Tacos, yum" /></p>
+      </div>
+      `
+    $('.js-hex-container').replaceWith(html)
   });
 }
 

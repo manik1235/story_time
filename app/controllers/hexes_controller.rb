@@ -10,6 +10,10 @@ class HexesController < ApplicationController
   # GET /hexes/1
   # GET /hexes/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render :show }
+    end
   end
 
   # GET /hexes/new

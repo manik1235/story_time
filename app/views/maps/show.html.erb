@@ -1,22 +1,37 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Background:</strong>
-  <%= @map.background %>
-</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <small>
+        <%= link_to "#{@map.background} #{@map.x}x#{@map.y}x#{@map.z}", edit_map_path(@map) %>
+      </small>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="pre-scrollable map-view">
+        <%= image_tag asset_pack_path("media/images/maps/#{@map.background}") %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="h3">Hex</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <div class="h3">Episodes</div>
+    </div>
+    <div class="col-4">
+      <div class="h3">Treasures</div>
+    </div>
+    <div class="col-4">
+      <div class="h3">Monsters</div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>X:</strong>
-  <%= @map.x %>
-  <strong>Y:</strong>
-  <%= @map.y %>
-  <strong>Z:</strong>
-  <%= @map.z %>
-</p>
 
-<%= link_to 'Edit', edit_map_path(@map) %> |
-<%= link_to 'Back', maps_path %>
 
-<p>
-  <%= image_tag "maps/#{@map.background}" %>
-</p>

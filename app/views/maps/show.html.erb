@@ -1,3 +1,4 @@
+<%= javascript_pack_tag 'maps/index', 'data-turbolinks-track': 'reload' %>
 <p id="notice"><%= notice %></p>
 
 <div class="container-fluid">
@@ -10,8 +11,8 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <div class="pre-scrollable map-view">
-        <%= image_tag asset_pack_path("media/images/maps/#{@map.background}") %>
+      <div class="pre-scrollable map-view js-map-view">
+        <%= image_tag(asset_pack_path("media/images/maps/#{@map.background}"), class: "js-map") %>
       </div>
     </div>
   </div>

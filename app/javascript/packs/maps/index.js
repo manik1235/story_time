@@ -1,15 +1,19 @@
-$(document).ready(function() {
-  $(".js-map").on("mousemove", function(event) {
-    var x = event.pageX - this.offsetLeft;
-    var y = event.pageY - this.offsetTop;
-    var mapX = x + $('.js-map-view').scrollLeft()
-    var mapY = y + $('.js-map-view').scrollTop()
-    var output = {
-      'x': x
-      , 'mapX': mapX
-      , 'y': y
-      , 'mapY': mapY
-    }
-    console.log(output);
-  });
-});
+const MapStuff = require("../../utilities/map_stuff").MapStuff
+
+function watchMap() {
+  $(document).ready(function() {
+    $(".js-map-view").on("mousemove", function(event) {
+      var x = event.pageX
+      var y = event.pageY
+      var xOffset = $('.js-map-view').scrollLeft()
+      var yOffset = $('.js-map-view').scrollTop()
+      var output
+      var mapStuff = new MapStuff
+
+      output = mapStuff.gridToHex(x + xOffset, y + yOffset)
+      console.log(output)
+    })
+  })
+}
+
+watchMap()

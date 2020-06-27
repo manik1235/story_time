@@ -15,13 +15,17 @@
 RSpec.describe "/episodes", type: :request do
   # Episode. As you add validations to Episode, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) do
+    {
+      series_id: FactoryBot.create(:series).id
+    }
+  end
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) do
+    {
+      series_id: "not a series id"
+    }
+  end
 
   describe "GET /index" do
     it "renders a successful response" do
@@ -84,15 +88,18 @@ RSpec.describe "/episodes", type: :request do
 
   describe "PATCH /update" do
     context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+      let(:new_series) { FactoryBot.create(:series) }
+      let(:new_attributes) do
+        {
+          series_id: new_series.id
+        }
+      end
 
       it "updates the requested episode" do
         episode = Episode.create! valid_attributes
         patch episode_url(episode), params: { episode: new_attributes }
         episode.reload
-        skip("Add assertions for updated state")
+        expect(episode.series.id).to eql(new_series.id)
       end
 
       it "redirects to the episode" do

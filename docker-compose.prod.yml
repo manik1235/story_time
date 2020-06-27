@@ -4,4 +4,4 @@ services:
   app:
     image: manik1235/story_time:latest
     ports:
-      - 35001:35001
+      - '35001:35001'

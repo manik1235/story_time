@@ -12,73 +12,71 @@
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/series", type: :request do
-  # Series. As you add validations to Series, be sure to
+RSpec.describe "/hexes", type: :request do
+  # Hex. As you add validations to Hex, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {
-      name: "A Series of Tests"
-    }
+    skip("Add a hash of attributes valid for your model")
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model. Currently, everything is valid, so keep skipping.")
+    skip("Add a hash of attributes invalid for your model")
   }
 
   describe "GET /index" do
     it "renders a successful response" do
-      Series.create! valid_attributes
-      get series_index_path
+      Hex.create! valid_attributes
+      get hexes_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /show" do
     it "renders a successful response" do
-      series = Series.create! valid_attributes
-      get series_url(series)
+      hex = Hex.create! valid_attributes
+      get hex_url(hex)
       expect(response).to be_successful
     end
   end
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_series_url
+      get new_hex_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /edit" do
     it "render a successful response" do
-      series = Series.create! valid_attributes
-      get edit_series_url(series)
+      hex = Hex.create! valid_attributes
+      get edit_hex_url(hex)
       expect(response).to be_successful
     end
   end
 
   describe "POST /create" do
     context "with valid parameters" do
-      it "creates a new Series" do
+      it "creates a new Hex" do
         expect {
-          post series_index_url, params: { series: valid_attributes }
-        }.to change(Series, :count).by(1)
+          post hexes_url, params: { hex: valid_attributes }
+        }.to change(Hex, :count).by(1)
       end
 
-      it "redirects to the created series" do
-        post series_index_url, params: { series: valid_attributes }
-        expect(response).to redirect_to(series_url(Series.last))
+      it "redirects to the created hex" do
+        post hexes_url, params: { hex: valid_attributes }
+        expect(response).to redirect_to(hex_url(Hex.last))
       end
     end
 
     context "with invalid parameters" do
-      it "does not create a new Series" do
+      it "does not create a new Hex" do
         expect {
-          post series_index_url, params: { series: invalid_attributes }
-        }.to change(Series, :count).by(0)
+          post hexes_url, params: { hex: invalid_attributes }
+        }.to change(Hex, :count).by(0)
       end
 
       it "renders a successful response (i.e. to display the 'new' template)" do
-        post series_index_url, params: { series: invalid_attributes }
+        post hexes_url, params: { hex: invalid_attributes }
         expect(response).to be_successful
       end
     end
@@ -90,42 +88,42 @@ RSpec.describe "/series", type: :request do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested series" do
-        series = Series.create! valid_attributes
-        patch series_url(series), params: { series: new_attributes }
-        series.reload
+      it "updates the requested hex" do
+        hex = Hex.create! valid_attributes
+        patch hex_url(hex), params: { hex: new_attributes }
+        hex.reload
         skip("Add assertions for updated state")
       end
 
-      it "redirects to the series" do
-        series = Series.create! valid_attributes
-        patch series_url(series), params: { series: new_attributes }
-        series.reload
-        expect(response).to redirect_to(series_url(series))
+      it "redirects to the hex" do
+        hex = Hex.create! valid_attributes
+        patch hex_url(hex), params: { hex: new_attributes }
+        hex.reload
+        expect(response).to redirect_to(hex_url(hex))
       end
     end
 
     context "with invalid parameters" do
       it "renders a successful response (i.e. to display the 'edit' template)" do
-        series = Series.create! valid_attributes
-        patch series_url(series), params: { series: invalid_attributes }
+        hex = Hex.create! valid_attributes
+        patch hex_url(hex), params: { hex: invalid_attributes }
         expect(response).to be_successful
       end
     end
   end
 
   describe "DELETE /destroy" do
-    it "destroys the requested series" do
-      series = Series.create! valid_attributes
+    it "destroys the requested hex" do
+      hex = Hex.create! valid_attributes
       expect {
-        delete series_url(series)
-      }.to change(Series, :count).by(-1)
+        delete hex_url(hex)
+      }.to change(Hex, :count).by(-1)
     end
 
-    it "redirects to the series list" do
-      series = Series.create! valid_attributes
-      delete series_url(series)
-      expect(response).to redirect_to(series_index_url)
+    it "redirects to the hexes list" do
+      hex = Hex.create! valid_attributes
+      delete hex_url(hex)
+      expect(response).to redirect_to(hexes_url)
     end
   end
 end

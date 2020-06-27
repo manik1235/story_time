@@ -73,3 +73,6 @@ Old school blue hex mat
 Hexes on the map can be hand drawn, and clicked on, and it would show the adventure associated with that hex. So episode 41 and 42 happened on hex<3,4,2>. Click that hex for links to the episodes.
 List of treasures, monsters, maps, so that you can run a game alongside if you want.
 
+
+### Styleguide
+[BEM](http://getbem.com/naming/) should be used for CSS naming conventions. See [this issue](https://github.com/manik1235/story_time/issues/35) for a brief summary.

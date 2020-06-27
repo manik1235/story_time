@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  app:
+    build: .
+    ports:
+      - '35003:35001'
+    volumes:
+      - '.:/app'
+
+  cmd:
+    build: .
+    volumes:
+      - '.:/app'

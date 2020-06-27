@@ -16,7 +16,7 @@ RSpec.describe "/series", type: :request do
   # Series. As you add validations to Series, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {}
   }
 
   let(:invalid_attributes) {
@@ -26,7 +26,8 @@ RSpec.describe "/series", type: :request do
   describe "GET /index" do
     it "renders a successful response" do
       Series.create! valid_attributes
-      get series_index_url
+      # get series_index_path # I can't get the helpers to not go to example.com
+      get 'http://hk.hopto.org:35001/series'
       expect(response).to be_successful
     end
   end

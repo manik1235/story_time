@@ -35,10 +35,6 @@ docker build -t story_time .
 * Deployment instructions
 docker run -p -it story_time
 
-### Docker Compose
-* Build and deploy instructions
-docker-compose up -d
-
 ### Access
 * Access UI on localhost:35001
 * Access console with
@@ -51,6 +47,9 @@ docker-compose exec rails c
 * https://dashboard.guardrails.io/gh/manik1235
 * Scans on each PR, and leaves comments for security issues
 
+### Running tests locally
+docker-compose -f docker-compose.local.yml run --rm cmd rspec
+
 ### Continuous Build
 * [Dockerhub image](https://hub.docker.com/repository/docker/manik1235/story_time)
 * Pushes (or changes?) to the `master` branch automatically trigger a docker image build with tag `latest`
@@ -58,9 +57,12 @@ docker-compose exec rails c
 
 ### Deployment
 * Branch: master, DockerHub tag: latest
-- run `docker-compose up -d`
+- `docker-compose -f docker-compose.prod.yml up -d`
 * Branch: dev, DockerHub tag: dev
-- run 'docker-compose -f docker-compose.dev.yml up -d`
+- 'docker-compose -f docker-compose.dev.yml up -d`
+* Build and deploy locally for dev, with hot code reloading
+- `docker-compose -f docker-compose.local.yml up -d`
+
 
 # Resources
 ### DnD 5e API

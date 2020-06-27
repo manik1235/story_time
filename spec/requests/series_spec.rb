@@ -26,8 +26,7 @@ RSpec.describe "/series", type: :request do
   describe "GET /index" do
     it "renders a successful response" do
       Series.create! valid_attributes
-      # get series_index_path # I can't get the helpers to not go to example.com
-      get 'http://hk.hopto.org:35001/series'
+      get series_index_path
       expect(response).to be_successful
     end
   end

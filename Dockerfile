@@ -23,6 +23,4 @@ RUN bundle install
 RUN rails webpacker:install
 RUN rails db:setup
 
-CMD rails s -p 35001 -b 0.0.0.0
-
 EXPOSE 35001

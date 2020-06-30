@@ -5,3 +5,7 @@ services:
     image: manik1235/story_time:latest
     ports:
       - '35001:35001'
+    command: ["rails", "s", "-p", "35001", "-b", "0.0.0.0"]
+
+  cmd:
+    image: manik1235/story_time:latest

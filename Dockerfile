@@ -15,8 +15,9 @@ RUN apt-get install -y nodejs
 # Install yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt-get update
 RUN apt-get install -y yarn
+# Install Jasmine-core into devDependencies (-D)
+RUN yarn add jasmine-core -D
 # Install gems via bundler
 RUN bundle install
 # Create the public/packs, etc folder

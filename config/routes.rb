@@ -6,5 +6,8 @@ Rails.application.routes.draw do
   resources :maps
   resources :series
   resources :welcomes
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  if Rails.env.development? || Rails.env.test?
+    get 'jasmine', to: 'jasmine#index'
+  end
 end

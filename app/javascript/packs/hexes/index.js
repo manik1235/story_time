@@ -29,6 +29,9 @@ function getHexInfo() {
 
 function drawHex(xCenter, yCenter, size) {
   var canvas = $("#myCanvas")[0]
+  if (!canvas) {
+    return
+  }
   var ctx = canvas.getContext("2d");
 
   // hexagon

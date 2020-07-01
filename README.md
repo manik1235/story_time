@@ -10,35 +10,25 @@ Things you may want to cover:
 * Ruby version
 2.6.6
 
-* Base Docker image
-[Dockerhub](https://hub.docker.com/_/ruby/)
+* Docker images
+[Dockerhub - ruby](https://hub.docker.com/_/ruby/)
+[Dockerhub - story_time](https://hub.docker.com/_/story_time/)
 
 * System dependencies
 rails
 ruby
 bundler
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-### Docker
-* Build instructions
+### Docker Build
 docker build -t story_time .
 
-* Deployment instructions
-docker run -p -it story_time
-
 ### Access
-* Access UI on localhost:35001
+* Access UI on 
+- localhost:35001 for production
+- :35002 for dev
+- :35003 for local
 * Access console with
-docker-compose exec rails c
+- `docker-compose -f docker-compose.<env>.yml cmd --rm rails c`
 
 ### Automated Code Quality and Style review
 * https://houndci.com/
@@ -47,22 +37,26 @@ docker-compose exec rails c
 * https://dashboard.guardrails.io/gh/manik1235
 * Scans on each PR, and leaves comments for security issues
 
-### Running tests locally
-docker-compose -f docker-compose.local.yml run --rm cmd rspec
-
 ### Continuous Build
 * [Dockerhub image](https://hub.docker.com/repository/docker/manik1235/story_time)
-* Pushes (or changes?) to the `master` branch automatically trigger a docker image build with tag `latest`
-* Pushes (or changes?) to the `dev` branch automatically trigger a docker image build with the tag `dev`
+* Pushes to the `master` branch automatically trigger a docker image build with tag `latest`
+* Pushes to the `dev` branch automatically trigger a docker image build with the tag `dev`
 
 ### Deployment
-* Branch: master, DockerHub tag: latest
-- `docker-compose -f docker-compose.prod.yml up -d`
+* Production:
+- `bash scripts/deploy.sh`
+- Branch: master
+- DockerHub tag: latest
 * Branch: dev, DockerHub tag: dev
 - 'docker-compose -f docker-compose.dev.yml up -d`
 * Build and deploy locally for dev, with hot code reloading
 - `docker-compose -f docker-compose.local.yml up -d`
 
+### Testing
+* Jasmine
+- Visit the `/jasmine` endpoint for JavaScript tests
+* RSpec
+- `docker-compose -f docker-compose.<env>.yml cmd --rm rspec`
 
 # Resources
 ### DnD 5e API

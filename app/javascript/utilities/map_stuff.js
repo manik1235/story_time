@@ -15,8 +15,10 @@ export class MapStuff {
   }
 
   hexToGrid(q, r, s) {
-    var x = (3. / 2 * q) * size
-    var y = (this.sqrt3 / 2 * q + this.sqrt3 * r) * size
+    var x = (3. / 2 * q) * this.size
+    var y = (this.sqrt3 / 2 * q + this.sqrt3 * r) * this.size
+    x = Math.round(x)
+    y = Math.round(y)
     return { x, y }
   }
 

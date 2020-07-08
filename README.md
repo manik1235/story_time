@@ -16,14 +16,14 @@ docker swarm (for production)
 ### Dev Access
 * Access UI on localhost:35003
 * Access console with
-- `docker-compose run --rm cmd rails c`
+  - `docker-compose run --rm cmd rails c`
 
 ### Running tests locally
 * rspec for ruby
-- `docker-compose run --rm cmd rspec`
+  - `docker-compose run --rm cmd rspec`
 * Jasmine for JavaScript
-- `docker-compose up -d`
-- visit http://localhost:35003/jasmine
+  - `docker-compose up -d`
+  - visit http://localhost:35003/jasmine
 
 ### Continuous Build
 * [Dockerhub image](https://hub.docker.com/repository/docker/manik1235/story_time)
@@ -31,7 +31,7 @@ docker swarm (for production)
 
 ### Deployment
 * Dev
-- `docker-compose up -d`
+  - `docker-compose up -d`
 
 ### Styleguide
 [BEM](http://getbem.com/naming/) should be used for CSS naming conventions. See [this issue](https://github.com/manik1235/story_time/issues/35) for a brief summary.

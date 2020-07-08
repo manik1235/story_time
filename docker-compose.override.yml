@@ -7,6 +7,7 @@ services:
       - '35003:35001'
     volumes:
       - '.:/app'
+    command: "scripts/deploy-dev.sh"
 
   cmd:
     build: .

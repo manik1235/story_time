@@ -7,7 +7,6 @@ services:
       - '35003:35001'
     volumes:
       - '.:/app'
-    command: ["rails", "s", "-p", "35001", "-b", "0.0.0.0"]
 
   cmd:
     build: .

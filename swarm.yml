@@ -4,8 +4,8 @@ services:
   app: 
     image: manik1235/story_time:latest
     ports:
-      - '35001:35001'
-    command: ["rails", "s", "-p", "35001", "-b", "0.0.0.0"]
+      - '80:35001'
+    command: ['rails', 's', '-p', '35001', '-b', '0.0.0.0']
     deploy:
       replicas: 1
       restart_policy:
@@ -14,8 +14,12 @@ services:
         max_attempts: 3
     environment:
       RAILS_ENV: production
+      SECRET_KEY_BASE: 'not-secure'
 
   cmd:
     image: manik1235/story_time:latest
     deploy:
       replicas: 0
+    environment:
+      RAILS_ENV: production
+      SECRET_KEY_BASE: 'not-secure'

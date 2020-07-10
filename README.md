@@ -32,6 +32,11 @@ docker swarm (for production)
 ### Deployment
 * Dev
   - `docker-compose up -d`
+* Production
+  - To deploy to Docker Swarm:
+  - Run `scripts/deploy-prod` on a manager node
+  - To deploy locally
+  - `docker-compose -f swarm.yml up -d`
 
 ### Styleguide
 [BEM](http://getbem.com/naming/) should be used for CSS naming conventions. See [this issue](https://github.com/manik1235/story_time/issues/35) for a brief summary.

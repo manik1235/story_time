@@ -51,17 +51,27 @@ class GameMap {
 
   _drawHexGrid(ctx) {
     // Draw the x-axis lines
-    var m = Math.tan(this._radians(60))
+    var radians = this._radians(60)
+    var m = Math.tan(radians)
     var xOffset = 13
     var hexDiameter = 133
     var mapWidth = 800
     var mapHeight = 800
-    var xDash = [44, 89]
-
+    var xDashFilledLength = 44
+    var xDashBlankLength = 89
+    var xDash = [xDashFilledLength, xDashBlankLength]
     var x0 = -mapHeight / m + xOffset
     var y0 = 94
 
-    this._drawDashedLines(ctx, xDash, x0, y0, m, mapWidth, mapHeight, hexDiameter)
+    // Draw first set of lines with first set of offsets
+    this._drawDashedLines(ctx, xDash, x0, y0, m, mapWidth, mapHeight, hexDiameter, '#ff0000')
+
+    // Shift first set of offsets to 2nd set
+    x0 = x0 + Math.cos(radians) * xDashFilledLength * 3
+    y0 = y0 + Math.sin(radians) * xDashFilledLength
+
+    // Draw second set of lines with second set of offsets
+    this._drawDashedLines(ctx, xDash, x0, y0, m, mapWidth, mapHeight, hexDiameter, '#00ff00')
 
     // Draw the y-axis line
 
@@ -69,11 +79,12 @@ class GameMap {
     // Draw the z-axis line
   }
 
-  _drawDashedLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter) {
+  _drawDashedLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter, color) {
     var line
 
-    ctx.strokeStyle = '#ff0000'
+    ctx.strokeStyle = color
     ctx.setLineDash(dash)
+    ctx.beginPath()
     for (var xi = x0, lineCount = 0; xi < mapWidth; xi += hexDiameter) {
       line = this._getLinex1x2y1y2(xi, y0, m, mapWidth, mapHeight)
       ctx.moveTo(line.x1, line.y1);

@@ -52,20 +52,20 @@ class GameMap {
   _drawHexGrid(ctx) {
     // Draw the x-axis lines
     var m = Math.tan(this._radians(60))
-    var x0
-    var y0 = 0
-    var offset = 4
-    var hexDiameter = 44.3
+    var xOffset = 13
+    var hexDiameter = 133
     var mapWidth = 800
     var mapHeight = 800
     var line
+    var xDash = [44, 89]
 
-    var x0 = -mapHeight / m + offset
-    var yi = y0
-    var xi = x0
+    var x0 = -mapHeight / m + xOffset
+    var yOffset = 94
 
-    for (var xi = x0; xi < mapWidth; xi += hexDiameter) {
-      line = this._getLinex1x2y1y2(xi, yi, m, mapWidth, mapHeight)
+    ctx.strokeStyle = '#ff0000'
+    ctx.setLineDash(xDash)
+    for (var xi = x0, lineCount = 0; xi < mapWidth; xi += hexDiameter) {
+      line = this._getLinex1x2y1y2(xi, yOffset, m, mapWidth, mapHeight)
       ctx.moveTo(line.x1, line.y1);
       ctx.lineTo(line.x2, line.y2);
       ctx.stroke();

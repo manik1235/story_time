@@ -8,18 +8,13 @@ class GameMap {
     this.mapImageUrl = imagePath('./maps/' + this.element.dataset.mapBackground)
   }
 
-  insertHexGrid() {
+  addMap() {
+    // Add component html to DOM
     this.element.innerHTML = this._html()
 
     var ctx = document.getElementById('map-component__canvas').getContext('2d')
 
-    var image = new Image()
-
-    image.onload = function() {
-      ctx.drawImage(image, 0, 0)
-    }
-    image.src = this.mapImageUrl
-    image.id = "map-image"
+    this._drawMapImage(ctx)
   }
 
   /******
@@ -31,6 +26,16 @@ class GameMap {
       <canvas id="map-component__canvas" height="800" width="800">
       </canvas>
     `
+  }
+
+  _drawMapImage(ctx) {
+    var image = new Image()
+
+    image.onload = function() {
+      ctx.drawImage(image, 0, 0)
+    }
+    image.src = this.mapImageUrl
+    image.id = "map-image"
   }
 }
 

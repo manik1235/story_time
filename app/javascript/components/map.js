@@ -66,26 +66,49 @@ class GameMap {
     var y0 = 94
 
     // Draw first set of lines with first set of offsets
-    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, hexDiameter, '#ff0000')
+    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#ff0000')
 
     // Shift first set of offsets to second set of offsets
     x0 = x0 + Math.cos(radians) * qDashFilledLength * 3
     y0 = y0 + Math.sin(radians) * qDashFilledLength
 
     // Draw second set of lines with second set of offsets
-    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, hexDiameter, '#00ff00')
+    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#00ff00')
 
     // Shift second set of offsets to third set of offsets
     x0 = x0 + Math.cos(radians) * qDashFilledLength * 3
     y0 = y0 + Math.sin(radians) * qDashFilledLength
 
     // Draw third set of lines with third set of offsets
-    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, hexDiameter, '#0000ff')
+    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#0000ff')
 
     /***********************
      * Draw the r-axis lines
      ***********************/
+    var degrees = 0
+    var radians = this._radians(degrees)
+    var m = Math.tan(radians)
+    var xOffset = 13
+    var hexDiameter = 133
+    var mapWidth = 800
+    var mapHeight = 800
+    var rDashFilledLength = 44
+    var rDashBlankLength = 89
+    var rDash = [rDashFilledLength, rDashBlankLength]
+    var x0
+    if (degrees === 0) {
+      // Horizontal lines, no angle based offset needed
+      x0 = 0
+    } else if (degrees === 90) {
+      // Vertical lines, no angle based offset needed
+      x0 = 0
+    } else {
+      x0 = -mapHeight / m + xOffset
+    }
+    var y0 = 94
 
+    // Draw first set of lines with first set of offsets
+    this._drawDashedLines(ctx, rDash, x0, y0, m, mapWidth, mapHeight, [0, hexDiameter], '#ff0000')
 
     /***********************
      * Draw the s-axis lines
@@ -94,12 +117,14 @@ class GameMap {
 
   _drawDashedLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter, color) {
     var line
+    var xStep = hexDiameter[0]
+    var yStep = hexDiameter[1]
 
     ctx.strokeStyle = color
     ctx.setLineDash(dash)
     ctx.beginPath()
-    for (var xi = x0; xi < mapWidth; xi += hexDiameter) {
-      line = this._getLinex1x2y1y2(xi, y0, m, mapWidth, mapHeight)
+    for (var xi = x0, yi = y0; xi < mapWidth && yi < mapHeight; xi += xStep, yi += yStep) {
+      line = this._getLinex1x2y1y2(xi, yi, m, mapWidth, mapHeight)
       ctx.moveTo(line.x1, line.y1);
       ctx.lineTo(line.x2, line.y2);
       ctx.stroke();

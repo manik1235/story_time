@@ -12,9 +12,14 @@ class GameMap {
     // Add component html to DOM
     this.element.innerHTML = this._html()
 
-    // Get the canvas context and draw the map image
-    var ctx = document.getElementById('map-component__canvas').getContext('2d')
-    this._drawMapImage(ctx)
+    // Get the canvas context for the map layer and draw the map image
+    this._drawMapImage(
+      document.getElementById('map-component__map-layer').getContext('2d')
+    )
+
+    this._drawHexGrid(
+      document.getElementById('map-component__grid-layer').getContext('2d')
+    )
   }
 
   /******
@@ -23,34 +28,46 @@ class GameMap {
 
   _html() {
     return `
-      <canvas id="map-component__canvas" height="800" width="800">
-      </canvas>
+      <canvas id="map-component__map-layer" height="800" width="800"
+        style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+      <canvas id="map-component__grid-layer" height="800" width="800"
+        style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
     `
   }
 
   _drawMapImage(ctx) {
     var image = new Image()
-    var _drawHexGrid = this._drawHexGrid
 
     image.onload = function() {
       ctx.drawImage(image, 0, 0)
-      // After the image is loaded and drawn, draw the hex grid lines
-      _drawHexGrid(ctx)
     }
     image.src = this.mapImageUrl
-    image.id = "map-image"
   }
 
   _drawHexGrid(ctx) {
     // Draw the x-axis line
-    ctx.moveTo(0, 0);
-    ctx.lineTo(800, 800);
+    var m = 1,
+      x = 1,
+      b = 1
+    var line = this._getLinex1x2y1y2(m, x, b)
+
+    ctx.moveTo(line.x1, line.y1);
+    ctx.lineTo(line.x2, line.y2);
     ctx.stroke();
 
     // Draw the y-axis line
 
 
     // Draw the z-axis line
+  }
+
+  _getLinex1x2y1y2(m, x, b) {
+    var x1 = 0,
+      x2 = 800,
+      y1 = 0,
+      y2 = 800
+
+    return { x1, x2, y1, y2 }
   }
 }
 

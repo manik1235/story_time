@@ -56,25 +56,30 @@ class GameMap {
     var hexDiameter = 133
     var mapWidth = 800
     var mapHeight = 800
-    var line
     var xDash = [44, 89]
 
     var x0 = -mapHeight / m + xOffset
-    var yOffset = 94
+    var y0 = 94
 
-    ctx.strokeStyle = '#ff0000'
-    ctx.setLineDash(xDash)
-    for (var xi = x0, lineCount = 0; xi < mapWidth; xi += hexDiameter) {
-      line = this._getLinex1x2y1y2(xi, yOffset, m, mapWidth, mapHeight)
-      ctx.moveTo(line.x1, line.y1);
-      ctx.lineTo(line.x2, line.y2);
-      ctx.stroke();
-    }
+    this._drawDashedLines(ctx, xDash, x0, y0, m, mapWidth, mapHeight, hexDiameter)
 
     // Draw the y-axis line
 
 
     // Draw the z-axis line
+  }
+
+  _drawDashedLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter) {
+    var line
+
+    ctx.strokeStyle = '#ff0000'
+    ctx.setLineDash(dash)
+    for (var xi = x0, lineCount = 0; xi < mapWidth; xi += hexDiameter) {
+      line = this._getLinex1x2y1y2(xi, y0, m, mapWidth, mapHeight)
+      ctx.moveTo(line.x1, line.y1);
+      ctx.lineTo(line.x2, line.y2);
+      ctx.stroke();
+    }
   }
 
   _getLinex1x2y1y2(x1, y1, m, mapWidth, mapHeight) {

@@ -50,7 +50,9 @@ class GameMap {
   }
 
   _drawHexGrid(ctx) {
-    // Draw the x-axis lines
+    /***********************
+     * Draw the x-axis lines
+     ***********************/
     var radians = this._radians(60)
     var m = Math.tan(radians)
     var xOffset = 13
@@ -66,17 +68,28 @@ class GameMap {
     // Draw first set of lines with first set of offsets
     this._drawDashedLines(ctx, xDash, x0, y0, m, mapWidth, mapHeight, hexDiameter, '#ff0000')
 
-    // Shift first set of offsets to 2nd set
+    // Shift first set of offsets to second set of offsets
     x0 = x0 + Math.cos(radians) * xDashFilledLength * 3
     y0 = y0 + Math.sin(radians) * xDashFilledLength
 
     // Draw second set of lines with second set of offsets
     this._drawDashedLines(ctx, xDash, x0, y0, m, mapWidth, mapHeight, hexDiameter, '#00ff00')
 
-    // Draw the y-axis line
+    // Shift second set of offsets to third set of offsets
+    x0 = x0 + Math.cos(radians) * xDashFilledLength * 3
+    y0 = y0 + Math.sin(radians) * xDashFilledLength
+
+    // Draw third set of lines with third set of offsets
+    this._drawDashedLines(ctx, xDash, x0, y0, m, mapWidth, mapHeight, hexDiameter, '#0000ff')
+
+    /***********************
+     * Draw the y-axis lines
+     ***********************/
 
 
-    // Draw the z-axis line
+    /***********************
+     * Draw the z-axis lines
+     ***********************/
   }
 
   _drawDashedLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter, color) {

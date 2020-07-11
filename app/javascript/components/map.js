@@ -53,6 +53,7 @@ class GameMap {
     /***********************
      * Draw the q-axis lines
      ***********************/
+    /*
     var radians = this._radians(60)
     var m = Math.tan(radians)
     var xOffset = 13
@@ -62,7 +63,15 @@ class GameMap {
     var qDashFilledLength = 44
     var qDashBlankLength = 89
     var qDash = [qDashFilledLength, qDashBlankLength]
-    var x0 = -mapHeight / m + xOffset
+    if (degrees === 0) {
+      // Horizontal lines, no angle based offset needed
+      x0 = 0 + xOffset
+    } else if (degrees === 90) {
+      // Vertical lines, no angle based offset needed
+      x0 = 0 + xOffset
+    } else {
+      x0 = -mapHeight / m + xOffset
+    }
     var y0 = 94
 
     // Draw first set of lines with first set of offsets
@@ -81,6 +90,7 @@ class GameMap {
 
     // Draw third set of lines with third set of offsets
     this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#0000ff')
+    */
 
     /***********************
      * Draw the r-axis lines
@@ -88,8 +98,8 @@ class GameMap {
     var degrees = 0
     var radians = this._radians(degrees)
     var m = Math.tan(radians)
-    var xOffset = 13
-    var hexDiameter = 133
+    var xOffset = 39
+    var hexDiameter = 76.7
     var mapWidth = 800
     var mapHeight = 800
     var rDashFilledLength = 44
@@ -98,10 +108,10 @@ class GameMap {
     var x0
     if (degrees === 0) {
       // Horizontal lines, no angle based offset needed
-      x0 = 0
+      x0 = 0 + xOffset
     } else if (degrees === 90) {
       // Vertical lines, no angle based offset needed
-      x0 = 0
+      x0 = 0 + xOffset
     } else {
       x0 = -mapHeight / m + xOffset
     }
@@ -109,6 +119,13 @@ class GameMap {
 
     // Draw first set of lines with first set of offsets
     this._drawDashedLines(ctx, rDash, x0, y0, m, mapWidth, mapHeight, [0, hexDiameter], '#ff0000')
+
+    // Shift first set of offsets to second set of offsets
+    x0 = x0 + rDashFilledLength * 1.5
+    y0 = y0 + hexDiameter / 2
+
+    // Draw second set of lines with second set of offsets
+    this._drawDashedLines(ctx, rDash, x0, y0, m, mapWidth, mapHeight, [0, hexDiameter], '#00ff00')
 
     /***********************
      * Draw the s-axis lines

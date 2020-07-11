@@ -45,11 +45,13 @@ class GameMap {
   }
 
   _drawHexGrid(ctx) {
-    // Draw the x-axis line
-    var m = 1,
-      x = 1,
-      b = 1
-    var line = this._getLinex1x2y1y2(m, x, b)
+    // Draw the x-axis lines
+    var m = 2
+    var x1 = 0
+    var y1 = 0
+    var mapWidth = 800
+    var mapHeight = 800
+    var line = this._getLinex1x2y1y2(x1, y1, m, mapWidth, mapHeight)
 
     ctx.moveTo(line.x1, line.y1);
     ctx.lineTo(line.x2, line.y2);
@@ -61,11 +63,21 @@ class GameMap {
     // Draw the z-axis line
   }
 
-  _getLinex1x2y1y2(m, x, b) {
-    var x1 = 0,
-      x2 = 800,
-      y1 = 0,
-      y2 = 800
+  _getLinex1x2y1y2(x1, y1, m, mapWidth, mapHeight) {
+    var x2
+    var y2
+    var b = y1 - m * x1
+
+    var possible_y = m * mapWidth + b
+    var possible_x = (mapHeight - b) / m
+
+    if (possible_y > mapHeight) {
+      x2 = possible_x
+      y2 = mapHeight
+    } else {
+      x2 = mapWidth
+      y2 = possible_y
+    }
 
     return { x1, x2, y1, y2 }
   }

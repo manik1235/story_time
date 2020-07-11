@@ -44,9 +44,14 @@ class GameMap {
     image.src = this.mapImageUrl
   }
 
+  _radians(degrees) {
+    var pi = Math.PI
+    return degrees * (pi / 180)
+  }
+
   _drawHexGrid(ctx) {
     // Draw the x-axis lines
-    var m = 2
+    var m = Math.tan(this._radians(60))
     var x1 = 0
     var y1 = 0
     var mapWidth = 800

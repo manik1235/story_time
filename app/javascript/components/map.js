@@ -51,7 +51,7 @@ class GameMap {
 
   _drawHexGrid(ctx) {
     /***********************
-     * Draw the x-axis lines
+     * Draw the q-axis lines
      ***********************/
     var radians = this._radians(60)
     var m = Math.tan(radians)
@@ -59,36 +59,36 @@ class GameMap {
     var hexDiameter = 133
     var mapWidth = 800
     var mapHeight = 800
-    var xDashFilledLength = 44
-    var xDashBlankLength = 89
-    var xDash = [xDashFilledLength, xDashBlankLength]
+    var qDashFilledLength = 44
+    var qDashBlankLength = 89
+    var qDash = [qDashFilledLength, qDashBlankLength]
     var x0 = -mapHeight / m + xOffset
     var y0 = 94
 
     // Draw first set of lines with first set of offsets
-    this._drawDashedLines(ctx, xDash, x0, y0, m, mapWidth, mapHeight, hexDiameter, '#ff0000')
+    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, hexDiameter, '#ff0000')
 
     // Shift first set of offsets to second set of offsets
-    x0 = x0 + Math.cos(radians) * xDashFilledLength * 3
-    y0 = y0 + Math.sin(radians) * xDashFilledLength
+    x0 = x0 + Math.cos(radians) * qDashFilledLength * 3
+    y0 = y0 + Math.sin(radians) * qDashFilledLength
 
     // Draw second set of lines with second set of offsets
-    this._drawDashedLines(ctx, xDash, x0, y0, m, mapWidth, mapHeight, hexDiameter, '#00ff00')
+    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, hexDiameter, '#00ff00')
 
     // Shift second set of offsets to third set of offsets
-    x0 = x0 + Math.cos(radians) * xDashFilledLength * 3
-    y0 = y0 + Math.sin(radians) * xDashFilledLength
+    x0 = x0 + Math.cos(radians) * qDashFilledLength * 3
+    y0 = y0 + Math.sin(radians) * qDashFilledLength
 
     // Draw third set of lines with third set of offsets
-    this._drawDashedLines(ctx, xDash, x0, y0, m, mapWidth, mapHeight, hexDiameter, '#0000ff')
+    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, hexDiameter, '#0000ff')
 
     /***********************
-     * Draw the y-axis lines
+     * Draw the r-axis lines
      ***********************/
 
 
     /***********************
-     * Draw the z-axis lines
+     * Draw the s-axis lines
      ***********************/
   }
 
@@ -98,7 +98,7 @@ class GameMap {
     ctx.strokeStyle = color
     ctx.setLineDash(dash)
     ctx.beginPath()
-    for (var xi = x0, lineCount = 0; xi < mapWidth; xi += hexDiameter) {
+    for (var xi = x0; xi < mapWidth; xi += hexDiameter) {
       line = this._getLinex1x2y1y2(xi, y0, m, mapWidth, mapHeight)
       ctx.moveTo(line.x1, line.y1);
       ctx.lineTo(line.x2, line.y2);

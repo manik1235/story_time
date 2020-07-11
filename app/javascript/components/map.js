@@ -13,7 +13,7 @@ class GameMap {
 
     var ctx = document.getElementById('map-component__canvas').getContext('2d')
 
-    var image = new Image(100, 100)
+    var image = new Image()
 
     image.onload = function() {
       ctx.drawImage(image, 0, 0)
@@ -28,7 +28,7 @@ class GameMap {
 
   _html() {
     return `
-      <canvas id="map-component__canvas">
+      <canvas id="map-component__canvas" height="800" width="800">
       </canvas>
     `
   }

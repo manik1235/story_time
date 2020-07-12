@@ -1,5 +1,5 @@
 class Axis {
-  constructor(name, degrees, xOffset, hexDiameter, mapWidth, mapHeight, dashFilledLength, dashBlankLength, color, calcxBuffer, x0, y0, calcx0, shifts, yOffset) {
+  constructor(name, degrees, xOffset, yOffset, hexDiameter, mapWidth, mapHeight, dashFilledLength, dashBlankLength, color, calcxBuffer, calcx0, shifts) {
     this.name = name
     this.degrees = degrees
     this.hexDiameter = hexDiameter
@@ -16,9 +16,9 @@ class Axis {
     if (calcx0) {
       this.x0 = -mapHeight / this.m + xOffset
     } else {
-      this.x0 = x0 + xOffset
+      this.x0 = xOffset
     }
-    this.y0 = y0 + yOffset
+    this.y0 = yOffset
     this.shifts = shifts
   }
 

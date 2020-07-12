@@ -82,6 +82,7 @@ class GameMap {
       'q',
       60,
       13,
+      94,
       133,
       800,
       800,
@@ -89,17 +90,15 @@ class GameMap {
       89,
       '#ff0000',
       false,
-      undefined,
-      94,
       true,
-      2,
-      0
+      2
     )
 
     var r = new Axis(
       'q',
       0,
       39,
+      94,
       76.7,
       800,
       800,
@@ -107,17 +106,15 @@ class GameMap {
       89,
       '#00ff00',
       false,
-      0,
-      94,
       false,
-      1,
-      0
+      1
     )
 
     var s = new Axis(
       's',
       -60,
       106,
+      -22,
       133,
       800,
       800,
@@ -125,11 +122,8 @@ class GameMap {
       89,
       '#0000ff',
       true,
-      0,
-      0,
       false,
-      2,
-      -22
+      2
     )
 
     return { q, r, s }

@@ -53,7 +53,6 @@ class GameMap {
     /***********************
      * Draw the q-axis lines
      ***********************/
-    /*
     var degrees = 60
     var radians = this._radians(degrees)
     var m = Math.tan(radians)
@@ -64,6 +63,7 @@ class GameMap {
     var qDashFilledLength = 44
     var qDashBlankLength = 89
     var qDash = [qDashFilledLength, qDashBlankLength]
+    var xBuffer = 0
     var x0
     if (degrees === 0) {
       // Horizontal lines, no angle based offset needed
@@ -77,27 +77,25 @@ class GameMap {
     var y0 = 94
 
     // Draw first set of lines with first set of offsets
-    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#ff0000')
+    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#ff0000', xBuffer)
 
     // Shift first set of offsets to second set of offsets
     x0 = x0 + Math.cos(radians) * qDashFilledLength * 3
     y0 = y0 + Math.sin(radians) * qDashFilledLength
 
     // Draw second set of lines with second set of offsets
-    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#00ff00')
+    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#00ff00', xBuffer)
 
     // Shift second set of offsets to third set of offsets
     x0 = x0 + Math.cos(radians) * qDashFilledLength * 3
     y0 = y0 + Math.sin(radians) * qDashFilledLength
 
     // Draw third set of lines with third set of offsets
-    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#0000ff')
-    */
+    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#0000ff', xBuffer)
 
     /***********************
      * Draw the r-axis lines
      ***********************/
-    /*
     var degrees = 0
     var radians = this._radians(degrees)
     var m = Math.tan(radians)
@@ -108,6 +106,7 @@ class GameMap {
     var rDashFilledLength = 44
     var rDashBlankLength = 89
     var rDash = [rDashFilledLength, rDashBlankLength]
+    var xBuffer = 0
     var x0
     if (degrees === 0) {
       // Horizontal lines, no angle based offset needed
@@ -121,15 +120,14 @@ class GameMap {
     var y0 = 94
 
     // Draw first set of lines with first set of offsets
-    this._drawDashedLines(ctx, rDash, x0, y0, m, mapWidth, mapHeight, [0, hexDiameter], '#ff0000')
+    this._drawDashedLines(ctx, rDash, x0, y0, m, mapWidth, mapHeight, [0, hexDiameter], '#ff0000', xBuffer)
 
     // Shift first set of offsets to second set of offsets
     x0 = x0 + rDashFilledLength * 1.5
     y0 = y0 + hexDiameter / 2
 
     // Draw second set of lines with second set of offsets
-    this._drawDashedLines(ctx, rDash, x0, y0, m, mapWidth, mapHeight, [0, hexDiameter], '#00ff00')
-    */
+    this._drawDashedLines(ctx, rDash, x0, y0, m, mapWidth, mapHeight, [0, hexDiameter], '#00ff00', xBuffer)
 
     /***********************
      * Draw the s-axis lines

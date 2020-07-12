@@ -166,7 +166,7 @@ class GameMap {
       "q",
       60,
       13,
-      [133, 0],
+      133,
       800,
       800,
       44,
@@ -181,14 +181,13 @@ class GameMap {
     return { q }
   }
 
-  //_drawHexAxisLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter, color, xBuffer, radians, dashFilledLength) {
   _drawHexAxisLines(ctx, axis) {
     var shifted
-    // this._drawHexAxisLines(ctx, q.dash, q.x0, q.y0, q.m, q.mapWidth, q.mapHeight, [q.hexDiameter, 0], q.color, q.xBuffer, q.radians, q.dashFilledLength)
 
     // Draw first set of lines with first set of offsets
-    this._drawDashedLines(ctx, axis.dash, axis.x0, axis.y0, axis.m, axis.mapWidth, axis.mapHeight, axis.hexDiameter, axis.color, axis.xBuffer)
+    axis.drawDashedLines(ctx, axis)
 
+    /*
     // Shift first set of offsets to second set of offsets
     shifted = axis.shiftx0y0()
     axis.x0 = shifted.x0
@@ -204,51 +203,7 @@ class GameMap {
 
     // Draw third set of lines with third set of offsets
     this._drawDashedLines(ctx, axis.dash, axis.x0, axis.y0, axis.m, axis.mapWidth, axis.mapHeight, axis.hexDiameter, axis.color, axis.xBuffer)
-  }
-
-  _drawDashedLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter, color, xBuffer) {
-    var line
-    var xStep = hexDiameter[0]
-    var yStep = hexDiameter[1]
-
-    ctx.strokeStyle = color
-    ctx.setLineDash(dash)
-    ctx.beginPath()
-    for (var xi = x0, yi = y0; xi <= mapWidth + xBuffer && yi <= mapHeight; xi += xStep, yi += yStep) {
-      line = this._getLinex1x2y1y2(xi, yi, m, mapWidth, mapHeight)
-      ctx.moveTo(line.x1, line.y1);
-      ctx.lineTo(line.x2, line.y2);
-      ctx.stroke();
-    }
-  }
-
-  _getLinex1x2y1y2(x1, y1, m, mapWidth, mapHeight) {
-    var x2
-    var y2
-    var b = y1 - m * x1
-
-    var possible_y = m * mapWidth + b
-    var possible_x = (mapHeight - b) / m
-
-    if (m >= 0) {
-      if (possible_y > mapHeight) {
-        x2 = possible_x
-        y2 = mapHeight
-      } else {
-        x2 = mapWidth
-        y2 = possible_y
-      }
-    } else {
-      if (possible_x < 0) {
-        x2 = 0
-        y2 = b
-      } else {
-        x2 = possible_x
-        y2 = mapHeight
-      }
-    }
-
-    return { x1, x2, y1, y2 }
+    */
   }
 }
 
@@ -284,6 +239,22 @@ class Axis {
     return [this.dashFilledLength, this.dashBlankLength]
   }
 
+  get xStep() {
+    if (this.radians !== 0 && this.radians !== Math.PI) {
+      return this.hexDiameter
+    } else {
+      return 0
+    }
+  }
+
+  get yStep() {
+    if (this.radians === 0 || this.radians === Math.PI) {
+      return this.hexDiameter
+    } else {
+      return 0
+    }
+  }
+
   _radians(degrees) {
     return degrees * (Math.PI / 180)
   }
@@ -306,6 +277,51 @@ class Axis {
     }
 
     return { x0, y0 }
+  }
+
+  drawDashedLines(ctx) {
+    var line
+    var xStep = this.xStep
+    var yStep = this.yStep
+
+    ctx.strokeStyle = this.color
+    ctx.setLineDash(this.dash)
+    ctx.beginPath()
+    for (var xi = this.x0, yi = this.y0; xi <= this.mapWidth + this.xBuffer && yi <= this.mapHeight; xi += this.xStep, yi += this.yStep) {
+      line = this._getLinex1x2y1y2(xi, yi)
+      ctx.moveTo(line.x1, line.y1);
+      ctx.lineTo(line.x2, line.y2);
+      ctx.stroke();
+    }
+  }
+
+  _getLinex1x2y1y2(x1, y1) {
+    var x2
+    var y2
+    var b = y1 - this.m * x1
+
+    var possible_y = this.m * this.mapWidth + b
+    var possible_x = (this.mapHeight - b) / this.m
+
+    if (this.m >= 0) {
+      if (possible_y > this.mapHeight) {
+        x2 = possible_x
+        y2 = this.mapHeight
+      } else {
+        x2 = this.mapWidth
+        y2 = possible_y
+      }
+    } else {
+      if (possible_x < 0) {
+        x2 = 0
+        y2 = b
+      } else {
+        x2 = possible_x
+        y2 = this.mapHeight
+      }
+    }
+
+    return { x1, x2, y1, y2 }
   }
 }
 

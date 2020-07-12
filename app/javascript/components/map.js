@@ -53,6 +53,7 @@ class GameMap {
     /***********************
      * Draw the q-axis lines
      ***********************/
+    /*
     var degrees = 60
     var radians = this._radians(degrees)
     var m = Math.tan(radians)
@@ -92,10 +93,12 @@ class GameMap {
 
     // Draw third set of lines with third set of offsets
     this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#0000ff', xBuffer)
+    */
 
     /***********************
      * Draw the r-axis lines
      ***********************/
+    /*
     var degrees = 0
     var radians = this._radians(degrees)
     var m = Math.tan(radians)
@@ -128,6 +131,7 @@ class GameMap {
 
     // Draw second set of lines with second set of offsets
     this._drawDashedLines(ctx, rDash, x0, y0, m, mapWidth, mapHeight, [0, hexDiameter], '#00ff00', xBuffer)
+    */
 
     /***********************
      * Draw the s-axis lines
@@ -135,8 +139,8 @@ class GameMap {
     var degrees = -60
     var radians = this._radians(degrees)
     var m = Math.tan(radians)
-    var xOffset = 104
-    var yOffset = -21
+    var xOffset = 106
+    var yOffset = -22
     var hexDiameter = 133
     var mapWidth = 800
     var mapHeight = 800
@@ -150,20 +154,20 @@ class GameMap {
     // Draw first set of lines with first set of offsets
     this._drawDashedLines(ctx, sDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#ff0000', xBuffer)
 
-    /*
     // Shift first set of offsets to second set of offsets
-    x0 = x0 + Math.cos(radians) * qDashFilledLength * 3
-    y0 = y0 + Math.sin(radians) * qDashFilledLength
+    x0 = x0 + Math.cos(radians) * sDashFilledLength * 3
+    y0 = y0 + Math.sin(radians) * sDashFilledLength
 
     // Draw second set of lines with second set of offsets
-    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#00ff00')
+    this._drawDashedLines(ctx, sDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#00ff00', xBuffer)
 
+    /*
     // Shift second set of offsets to third set of offsets
     x0 = x0 + Math.cos(radians) * qDashFilledLength * 3
     y0 = y0 + Math.sin(radians) * qDashFilledLength
 
     // Draw third set of lines with third set of offsets
-    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#0000ff')
+    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#0000ff', xBuffer)
     */
   }
 

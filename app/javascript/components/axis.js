@@ -16,7 +16,7 @@ class Axis {
     return [this.dashFilledLength, this.dashBlankLength]
   }
 
-  drawHexDashedLines(ctx) {
+  drawLines(ctx) {
     var shifted
     var x0 = this._x0
     var y0 = this._y0

@@ -24,10 +24,6 @@ class GameMap {
     )
   }
 
-  /******
-   * private
-   */
-
   _html() {
     return `
       <canvas id="map-component__map-layer" height="800" width="800"
@@ -46,38 +42,14 @@ class GameMap {
     image.src = this.mapImageUrl
   }
 
-  _radians(degrees) {
-    var pi = Math.PI
-    return degrees * (pi / 180)
-  }
-
   _drawHexGrid(ctx) {
-    /***********************
-     * Draw the q-axis lines
-     ***********************/
-    var q = this._axesInfo().q
-
-    this._drawHexAxisLines(ctx, q)
-
-    /***********************
-     * Draw the r-axis lines
-     ***********************/
-    var r = this._axesInfo().r
-
-    this._drawHexAxisLines(ctx, r)
-
-    /***********************
-     * Draw the s-axis lines
-     ***********************/
-    var s = this._axesInfo().s
-
-    this._drawHexAxisLines(ctx, s)
+    var axes = this._axes()
+    axes.q.drawLines(ctx)
+    axes.r.drawLines(ctx)
+    axes.s.drawLines(ctx)
   }
 
-  _axesInfo() {
-    /***********************
-     * Draw the q-axis lines
-     ***********************/
+  _axes() {
     var q = new Axis(
       'q',
       60,
@@ -118,11 +90,6 @@ class GameMap {
     )
 
     return { q, r, s }
-  }
-
-  _drawHexAxisLines(ctx, axis) {
-    // Draw all sets of lines for one axis
-    axis.drawHexDashedLines(ctx)
   }
 }
 

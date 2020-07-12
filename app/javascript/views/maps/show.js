@@ -1,4 +1,4 @@
-import { GameMap } from '../../components/map.js'
+import { GameMap } from '../../components/game_map.js'
 
 $(document).on('turbolinks:load', function() {
   var gameMap = new GameMap('map')

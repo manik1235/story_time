@@ -1,5 +1,5 @@
 class Axis {
-  constructor(name, degrees, xOffset, yOffset, hexDiameter, mapWidth, mapHeight, dashFilledLength, dashBlankLength, color, calcxBuffer, calcx0, shifts) {
+  constructor(name, degrees, xOffset, yOffset, hexDiameter, mapWidth, mapHeight, dashFilledLength, dashBlankLength, color, calcxBuffer, calcx0) {
     this.name = name
     this.degrees = degrees
     this.hexDiameter = hexDiameter
@@ -19,7 +19,19 @@ class Axis {
       this.x0 = xOffset
     }
     this.y0 = yOffset
-    this.shifts = shifts
+  }
+
+  get shifts() {
+    if (this.radians === 0 || this.radians === Math.PI) {
+      // Horizontal
+      return 1
+    } else if (this.radians === Math.PI / 2 || this.radians === 3 * Math.PI / 2) {
+      // vertical lines
+      console.log("Not implemented")
+    } else {
+      // Angled
+      return 2
+    }
   }
 
   get radians() {
@@ -35,17 +47,27 @@ class Axis {
   }
 
   get xStep() {
-    if (this.radians !== 0 && this.radians !== Math.PI) {
-      return this.hexDiameter
-    } else {
+    if (this.radians === 0 || this.radians === Math.PI) {
+      // Horizontal lines
       return 0
+    } else if (this.radians === Math.PI / 2 || this.radians === 3 * Math.PI / 2) {
+      // vertical lines
+      console.log("Not implemented")
+    } else {
+      // Angled lines
+      return this.hexDiameter
     }
   }
 
   get yStep() {
     if (this.radians === 0 || this.radians === Math.PI) {
+      // Horizontal Lines
       return this.hexDiameter
+    } else if (this.radians === Math.PI / 2 || this.radians === 3 * Math.PI / 2) {
+      // vertical lines
+      console.log("Not implemented")
     } else {
+      // Angled Lines
       return 0
     }
   }

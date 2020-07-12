@@ -90,8 +90,7 @@ class GameMap {
       89,
       '#ff0000',
       false,
-      true,
-      2
+      true
     )
 
     var r = new Axis(
@@ -106,8 +105,7 @@ class GameMap {
       89,
       '#00ff00',
       false,
-      false,
-      1
+      false
     )
 
     var s = new Axis(
@@ -122,8 +120,7 @@ class GameMap {
       89,
       '#0000ff',
       true,
-      false,
-      2
+      false
     )
 
     return { q, r, s }

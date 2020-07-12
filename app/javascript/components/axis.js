@@ -1,5 +1,5 @@
 class Axis {
-  constructor(name, degrees, xOffset, yOffset, hexDiameter, mapWidth, mapHeight, dashFilledLength, dashBlankLength, color, calcxBuffer, calcx0) {
+  constructor(name, degrees, xOffset, yOffset, hexDiameter, mapWidth, mapHeight, dashFilledLength, dashBlankLength, color) {
     this.name = name
     this.degrees = degrees
     this.hexDiameter = hexDiameter
@@ -7,18 +7,32 @@ class Axis {
     this.mapHeight = mapHeight
     this.dashFilledLength = dashFilledLength
     this.dashBlankLength = dashBlankLength
+    this._xOffset = xOffset
     this.color = color
-    if (calcxBuffer) {
-      this.xBuffer = -this.m * mapHeight + xOffset
-    } else {
-      this.xBuffer = 0
-    }
-    if (calcx0) {
-      this.x0 = -mapHeight / this.m + xOffset
-    } else {
-      this.x0 = xOffset
-    }
     this.y0 = yOffset
+  }
+
+  get x0() {
+    if (this.m > 0) {
+      // Calculate the extra distance needed to start to the left of the canvas
+      //   if the slope is positive
+      return -this.mapHeight / this.m + this._xOffset
+    } else {
+      // Otherwise only the xOffset is needed
+      return this._xOffset
+    }
+  }
+
+  get _xBuffer() {
+    if (this.m < 0) {
+      // Calculate the extra buffer needed when drawing lines that will pass the
+      //   mapWidth boundary
+      return -this.m * this.mapHeight + this._xOffset
+    } else {
+      // No extra buffer needed because the lines will always start on or to the
+      //   left of the canvas.
+      return 0
+    }
   }
 
   get shifts() {
@@ -120,7 +134,7 @@ class Axis {
     ctx.strokeStyle = this.color
     ctx.setLineDash(this.dash)
     ctx.beginPath()
-    for (var xi = x0, yi = y0; xi <= this.mapWidth + this.xBuffer && yi <= this.mapHeight; xi += this.xStep, yi += this.yStep) {
+    for (var xi = x0, yi = y0; xi <= this.mapWidth + this._xBuffer && yi <= this.mapHeight; xi += this.xStep, yi += this.yStep) {
       line = this._getLineCoordinates(xi, yi)
       ctx.moveTo(line.x1, line.y1);
       ctx.lineTo(line.x2, line.y2);

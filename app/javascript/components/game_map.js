@@ -50,44 +50,9 @@ class GameMap {
   }
 
   _axes() {
-    var q = new Axis(
-      'q',
-      60,
-      13,
-      94,
-      133,
-      800,
-      800,
-      44,
-      89,
-      '#ff0000'
-    )
-
-    var r = new Axis(
-      'r',
-      0,
-      39,
-      94,
-      76.7,
-      800,
-      800,
-      44,
-      89,
-      '#00ff00'
-    )
-
-    var s = new Axis(
-      's',
-      -60,
-      106,
-      -22,
-      133,
-      800,
-      800,
-      44,
-      89,
-      '#0000ff'
-    )
+    var q = new Axis(JSON.parse(this.element.dataset.q))
+    var r = new Axis(JSON.parse(this.element.dataset.r))
+    var s = new Axis(JSON.parse(this.element.dataset.s))
 
     return { q, r, s }
   }

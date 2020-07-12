@@ -1,15 +1,15 @@
 class Axis {
-  constructor(name, degrees, xOffset, yOffset, hexDiameter, mapWidth, mapHeight, dashFilledLength, dashBlankLength, color) {
-    this.name = name
-    this.degrees = degrees
-    this._xOffset = xOffset
-    this._y0 = yOffset
-    this.hexDiameter = hexDiameter
-    this.mapWidth = mapWidth
-    this.mapHeight = mapHeight
-    this.dashFilledLength = dashFilledLength
-    this.dashBlankLength = dashBlankLength
-    this.color = color
+  constructor(dataset) {
+    this.name = dataset.name
+    this.degrees = dataset.degrees
+    this._xOffset = dataset.xOffset
+    this._y0 = dataset.yOffset
+    this.hexDiameter = dataset.hexDiameter
+    this.mapWidth = dataset.mapWidth
+    this.mapHeight = dataset.mapHeight
+    this.dashFilledLength = dataset.dashFilledLength
+    this.dashBlankLength = dataset.dashBlankLength
+    this.color = dataset.color
   }
 
   get dash() {

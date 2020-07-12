@@ -53,6 +53,7 @@ class GameMap {
     /***********************
      * Draw the q-axis lines
      ***********************/
+    /*
     var degrees = 60
     var radians = this._radians(degrees)
     var m = Math.tan(radians)
@@ -91,6 +92,7 @@ class GameMap {
 
     // Draw third set of lines with third set of offsets
     this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#0000ff')
+    */
 
     /***********************
      * Draw the r-axis lines
@@ -132,6 +134,37 @@ class GameMap {
     /***********************
      * Draw the s-axis lines
      ***********************/
+    var degrees = -60
+    var radians = this._radians(degrees)
+    var m = Math.tan(radians)
+    var yOffset = 0
+    var hexDiameter = 133
+    var mapWidth = 800
+    var mapHeight = 800
+    var sDashFilledLength = 44
+    var sDashBlankLength = 89
+    var sDash = [sDashFilledLength, sDashBlankLength]
+    var x0 = 800
+    var y0 = 0
+
+    // Draw first set of lines with first set of offsets
+    this._drawDashedLines(ctx, sDash, x0, y0, m, mapWidth, mapHeight, [0, hexDiameter], '#ff0000')
+
+    /*
+    // Shift first set of offsets to second set of offsets
+    x0 = x0 + Math.cos(radians) * qDashFilledLength * 3
+    y0 = y0 + Math.sin(radians) * qDashFilledLength
+
+    // Draw second set of lines with second set of offsets
+    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#00ff00')
+
+    // Shift second set of offsets to third set of offsets
+    x0 = x0 + Math.cos(radians) * qDashFilledLength * 3
+    y0 = y0 + Math.sin(radians) * qDashFilledLength
+
+    // Draw third set of lines with third set of offsets
+    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#0000ff')
+    */
   }
 
   _drawDashedLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter, color) {
@@ -142,7 +175,7 @@ class GameMap {
     ctx.strokeStyle = color
     ctx.setLineDash(dash)
     ctx.beginPath()
-    for (var xi = x0, yi = y0; xi < mapWidth && yi < mapHeight; xi += xStep, yi += yStep) {
+    for (var xi = x0, yi = y0; xi <= mapWidth && yi <= mapHeight; xi += xStep, yi += yStep) {
       line = this._getLinex1x2y1y2(xi, yi, m, mapWidth, mapHeight)
       ctx.moveTo(line.x1, line.y1);
       ctx.lineTo(line.x2, line.y2);
@@ -155,15 +188,29 @@ class GameMap {
     var y2
     var b = y1 - m * x1
 
-    var possible_y = m * mapWidth + b
-    var possible_x = (mapHeight - b) / m
+    var possible_y
+    var possible_x
 
-    if (possible_y > mapHeight) {
-      x2 = possible_x
-      y2 = mapHeight
+    if (m >= 0) {
+      possible_y = m * mapWidth + b
+      possible_x = (mapHeight - b) / m
+      if (possible_y > mapHeight) {
+        x2 = possible_x
+        y2 = mapHeight
+      } else {
+        x2 = mapWidth
+        y2 = possible_y
+      }
     } else {
-      x2 = mapWidth
-      y2 = possible_y
+      possible_y = m * mapWidth + b
+      possible_x = (mapHeight - b) / m
+      if (possible_x >= 0) {
+        x2 = possible_x
+        y2 = mapHeight
+      } else {
+        x2 = mapWidth
+        y2 = possible_y
+      }
     }
 
     return { x1, x2, y1, y2 }

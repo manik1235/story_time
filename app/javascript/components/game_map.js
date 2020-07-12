@@ -64,7 +64,7 @@ class GameMap {
     )
 
     var r = new Axis(
-      'q',
+      'r',
       0,
       39,
       94,

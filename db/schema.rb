@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_13_053215) do
+ActiveRecord::Schema.define(version: 2020_07_12_180442) do
+
+  create_table "axes", force: :cascade do |t|
+    t.string "name"
+    t.float "degrees"
+    t.float "x_offset"
+    t.float "y_offset"
+    t.float "hex_diameter"
+    t.integer "map_width"
+    t.integer "map_height"
+    t.integer "dash_filled_length"
+    t.integer "dash_blank_length"
+    t.string "color"
+    t.integer "map_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["map_id"], name: "index_axes_on_map_id"
+  end
 
   create_table "episode_hexes", force: :cascade do |t|
     t.integer "episode_id"

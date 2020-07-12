@@ -137,16 +137,17 @@ class GameMap {
     var degrees = -60
     var radians = this._radians(degrees)
     var m = Math.tan(radians)
-    var yOffset = 0
+    var xOffset = 104
+    var yOffset = -21
     var hexDiameter = 133
     var mapWidth = 800
     var mapHeight = 800
     var sDashFilledLength = 44
     var sDashBlankLength = 89
     var sDash = [sDashFilledLength, sDashBlankLength]
-    var xBuffer = -m * mapHeight
-    var x0 = 0
-    var y0 = 0
+    var xBuffer = -m * mapHeight + xOffset
+    var x0 = 0 + xOffset
+    var y0 = 0 + yOffset
 
     // Draw first set of lines with first set of offsets
     this._drawDashedLines(ctx, sDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#ff0000', xBuffer)

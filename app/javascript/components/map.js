@@ -53,6 +53,7 @@ class GameMap {
     /***********************
      * Draw the q-axis lines
      ***********************/
+    /*
     var degrees = 60
     var radians = this._radians(degrees)
     var m = Math.tan(radians)
@@ -64,41 +65,21 @@ class GameMap {
     var qDashBlankLength = 89
     var qDash = [qDashFilledLength, qDashBlankLength]
     var xBuffer = 0
-    var x0
-    if (degrees === 0) {
-      // Horizontal lines, no angle based offset needed
-      x0 = 0 + xOffset
-    } else if (degrees === 90) {
-      // Vertical lines, no angle based offset needed
-      x0 = 0 + xOffset
-    } else {
-      x0 = -mapHeight / m + xOffset
-    }
+    var x0 = -mapHeight / m + xOffset
     var y0 = 94
     var shifted
+    */
 
-    // Draw first set of lines with first set of offsets
-    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#ff0000', xBuffer)
+    var q = this._axesInfo().q
 
-    // Shift first set of offsets to second set of offsets
-    shifted = this._shiftx0y0(x0, y0, radians, qDashFilledLength)
-    x0 = shifted.x0
-    y0 = shifted.y0
+    this._drawHexAxisLines(ctx, q.dash, q.x0, q.y0, q.m, q.mapWidth, q.mapHeight, [q.hexDiameter, 0], q.color, q.xBuffer, q.radians, q.dashFilledLength)
 
-    // Draw second set of lines with second set of offsets
-    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#00ff00', xBuffer)
-
-    // Shift second set of offsets to third set of offsets
-    shifted = this._shiftx0y0(x0, y0, radians, qDashFilledLength)
-    x0 = shifted.x0
-    y0 = shifted.y0
-
-    // Draw third set of lines with third set of offsets
-    this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#0000ff', xBuffer)
+    // this._drawHexAxisLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#ff0000', xBuffer, radians, dashFilledLength)
 
     /***********************
      * Draw the r-axis lines
      ***********************/
+    /*
     var degrees = 0
     var radians = this._radians(degrees)
     var m = Math.tan(radians)
@@ -133,10 +114,12 @@ class GameMap {
 
     // Draw second set of lines with second set of offsets
     this._drawDashedLines(ctx, rDash, x0, y0, m, mapWidth, mapHeight, [0, hexDiameter], '#00ff00', xBuffer)
+    */
 
     /***********************
      * Draw the s-axis lines
      ***********************/
+    /*
     var degrees = -60
     var radians = this._radians(degrees)
     var m = Math.tan(radians)
@@ -171,6 +154,53 @@ class GameMap {
 
     // Draw third set of lines with third set of offsets
     this._drawDashedLines(ctx, sDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#0000ff', xBuffer)
+    */
+  }
+
+  _axesInfo() {
+    /***********************
+     * Draw the q-axis lines
+     ***********************/
+    var q = new Axis(
+      "q",
+      60,
+      13,
+      133,
+      800,
+      800,
+      44,
+      89,
+      '#ff0000',
+      0,
+      undefined,
+      94,
+      true
+    )
+
+    return { q }
+  }
+
+  _drawHexAxisLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter, color, xBuffer, radians, dashFilledLength) {
+    var shifted
+
+    // Draw first set of lines with first set of offsets
+    this._drawDashedLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter, color, xBuffer)
+
+    // Shift first set of offsets to second set of offsets
+    shifted = this._shiftx0y0(x0, y0, radians, dashFilledLength)
+    x0 = shifted.x0
+    y0 = shifted.y0
+
+    // Draw second set of lines with second set of offsets
+    this._drawDashedLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter, color, xBuffer)
+
+    // Shift second set of offsets to third set of offsets
+    shifted = this._shiftx0y0(x0, y0, radians, dashFilledLength)
+    x0 = shifted.x0
+    y0 = shifted.y0
+
+    // Draw third set of lines with third set of offsets
+    this._drawDashedLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter, color, xBuffer)
   }
 
   _shiftx0y0(x0, y0, radians, dashFilledLength, hexDiameter) {
@@ -233,6 +263,43 @@ class GameMap {
     }
 
     return { x1, x2, y1, y2 }
+  }
+}
+
+class Axis {
+  constructor(name, degrees, xOffset, hexDiameter, mapWidth, mapHeight, dashFilledLength, dashBlankLength, color, xBuffer, x0, y0, calcx0) {
+    this.name = name
+    this.degrees = degrees
+    this.xOffset = xOffset
+    this.hexDiameter = hexDiameter
+    this.mapWidth = mapWidth
+    this.mapHeight = mapHeight
+    this.dashFilledLength = dashFilledLength
+    this.dashBlankLength = dashBlankLength
+    this.color = color
+    this.xBuffer = xBuffer
+    if (calcx0 === true) {
+      this.x0 = -mapHeight / this.m + xOffset
+    } else {
+      this.x0 = x0
+    }
+    this.y0 = y0
+  }
+
+  get radians() {
+    return this._radians(this.degrees)
+  }
+
+  get m() {
+    return Math.tan(this.radians)
+  }
+
+  get dash() {
+    return [this.dashFilledLength, this.dashBlankLength]
+  }
+
+  _radians(degrees) {
+    return degrees * (Math.PI / 180)
   }
 }
 

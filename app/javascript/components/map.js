@@ -72,8 +72,9 @@ class GameMap {
 
     var q = this._axesInfo().q
 
-    this._drawHexAxisLines(ctx, q.dash, q.x0, q.y0, q.m, q.mapWidth, q.mapHeight, [q.hexDiameter, 0], q.color, q.xBuffer, q.radians, q.dashFilledLength)
+    this._drawHexAxisLines(ctx, q)
 
+    // this._drawHexAxisLines(ctx, q.dash, q.x0, q.y0, q.m, q.mapWidth, q.mapHeight, [q.hexDiameter, 0], q.color, q.xBuffer, q.radians, q.dashFilledLength)
     // this._drawHexAxisLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#ff0000', xBuffer, radians, dashFilledLength)
 
     /***********************
@@ -165,7 +166,7 @@ class GameMap {
       "q",
       60,
       13,
-      133,
+      [133, 0],
       800,
       800,
       44,
@@ -180,44 +181,29 @@ class GameMap {
     return { q }
   }
 
-  _drawHexAxisLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter, color, xBuffer, radians, dashFilledLength) {
+  //_drawHexAxisLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter, color, xBuffer, radians, dashFilledLength) {
+  _drawHexAxisLines(ctx, axis) {
     var shifted
+    // this._drawHexAxisLines(ctx, q.dash, q.x0, q.y0, q.m, q.mapWidth, q.mapHeight, [q.hexDiameter, 0], q.color, q.xBuffer, q.radians, q.dashFilledLength)
 
     // Draw first set of lines with first set of offsets
-    this._drawDashedLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter, color, xBuffer)
+    this._drawDashedLines(ctx, axis.dash, axis.x0, axis.y0, axis.m, axis.mapWidth, axis.mapHeight, axis.hexDiameter, axis.color, axis.xBuffer)
 
     // Shift first set of offsets to second set of offsets
-    shifted = this._shiftx0y0(x0, y0, radians, dashFilledLength)
-    x0 = shifted.x0
-    y0 = shifted.y0
+    shifted = axis.shiftx0y0()
+    axis.x0 = shifted.x0
+    axis.y0 = shifted.y0
 
     // Draw second set of lines with second set of offsets
-    this._drawDashedLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter, color, xBuffer)
+    this._drawDashedLines(ctx, axis.dash, axis.x0, axis.y0, axis.m, axis.mapWidth, axis.mapHeight, axis.hexDiameter, axis.color, axis.xBuffer)
 
     // Shift second set of offsets to third set of offsets
-    shifted = this._shiftx0y0(x0, y0, radians, dashFilledLength)
-    x0 = shifted.x0
-    y0 = shifted.y0
+    shifted = axis.shiftx0y0()
+    axis.x0 = shifted.x0
+    axis.y0 = shifted.y0
 
     // Draw third set of lines with third set of offsets
-    this._drawDashedLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter, color, xBuffer)
-  }
-
-  _shiftx0y0(x0, y0, radians, dashFilledLength, hexDiameter) {
-    if (radians === 0 || radians === Math.PI) {
-      // Shift horizontal lines
-      x0 = x0 + dashFilledLength * 1.5
-      y0 = y0 + hexDiameter / 2
-    } else if (radians === Math.PI / 2 || radians === 3 * Math.PI / 2) {
-      // Shift vertical lines
-      console.log("Not implemented")
-    } else {
-      // Shift angled lines
-      x0 = x0 + Math.cos(radians) * dashFilledLength * 3
-      y0 = y0 + Math.sin(radians) * dashFilledLength
-    }
-
-    return { x0, y0 }
+    this._drawDashedLines(ctx, axis.dash, axis.x0, axis.y0, axis.m, axis.mapWidth, axis.mapHeight, axis.hexDiameter, axis.color, axis.xBuffer)
   }
 
   _drawDashedLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter, color, xBuffer) {
@@ -300,6 +286,26 @@ class Axis {
 
   _radians(degrees) {
     return degrees * (Math.PI / 180)
+  }
+
+  shiftx0y0() {
+    var x0
+    var y0
+
+    if (this.radians === 0 || this.radians === Math.PI) {
+      // Shift horizontal lines
+      x0 = this.x0 + this.dashFilledLength * 1.5
+      y0 = this.y0 + this.hexDiameter / 2
+    } else if (this.radians === Math.PI / 2 || this.radians === 3 * Math.PI / 2) {
+      // Shift vertical lines
+      console.log("Not implemented")
+    } else {
+      // Shift angled lines
+      x0 = this.x0 + Math.cos(this.radians) * this.dashFilledLength * 3
+      y0 = this.y0 + Math.sin(this.radians) * this.dashFilledLength
+    }
+
+    return { x0, y0 }
   }
 }
 

@@ -18,6 +18,14 @@ hexes = [{ id: 1, name: "Desert", x: 0, y: 0, z: 0, background: "desert.png", cr
 
 hexes.each { |hex| Hex.create(hex) }
 
-maps =  [{ id: 1, background: "hex-paper-continent-scale-2.3.png", x: 10, y: 10, z: 1, created_at: "2020-06-10 19:49:43", updated_at: "2020-06-10 22:21:23" }]
+maps = [{ id: 1, background: "tim.jpg", x: 800, y: 800, z: 1, created_at: "2020-06-10 19:49:43", updated_at: "2020-06-10 22:21:23" }]
 
 maps.each { |map| Map.create(map) }
+
+axes = [
+  {:name=>"q", :degrees=>60, :x_offset=>13, :y_offset=>94, :hex_diameter=>133, :map_width=>800, :map_height=>800, :dash_filled_length=>44, :dash_blank_length=>89, :color=>"#ff0000", :map_id=>1},
+  {:name=>"r", :degrees=>0, :x_offset=>39, :y_offset=>94, :hex_diameter=>76.7, :map_width=>800, :map_height=>800, :dash_filled_length=>44, :dash_blank_length=>89, :color=>"#00ff00", :map_id=>1},
+  {:name=>"s", :degrees=>-60, :x_offset=>106, :y_offset=>-22, :hex_diameter=>133, :map_width=>800, :map_height=>800, :dash_filled_length=>44, :dash_blank_length=>89, :color=>"#0000ff", :map_id=>1}
+]
+
+axes.each { |axis| Axis.create(axis) }

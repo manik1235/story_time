@@ -43,3 +43,5 @@ docker swarm (for production)
 
 ### Accessibility
 [Web Accessibility Checker](https://achecker.ca/checker/index.php)
+
+some edit //testing edits by contributor Jordan

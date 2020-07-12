@@ -53,8 +53,8 @@ class GameMap {
     /***********************
      * Draw the q-axis lines
      ***********************/
-    /*
-    var radians = this._radians(60)
+    var degrees = 60
+    var radians = this._radians(degrees)
     var m = Math.tan(radians)
     var xOffset = 13
     var hexDiameter = 133
@@ -63,6 +63,7 @@ class GameMap {
     var qDashFilledLength = 44
     var qDashBlankLength = 89
     var qDash = [qDashFilledLength, qDashBlankLength]
+    var x0
     if (degrees === 0) {
       // Horizontal lines, no angle based offset needed
       x0 = 0 + xOffset
@@ -90,11 +91,11 @@ class GameMap {
 
     // Draw third set of lines with third set of offsets
     this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#0000ff')
-    */
 
     /***********************
      * Draw the r-axis lines
      ***********************/
+    /*
     var degrees = 0
     var radians = this._radians(degrees)
     var m = Math.tan(radians)
@@ -126,6 +127,7 @@ class GameMap {
 
     // Draw second set of lines with second set of offsets
     this._drawDashedLines(ctx, rDash, x0, y0, m, mapWidth, mapHeight, [0, hexDiameter], '#00ff00')
+    */
 
     /***********************
      * Draw the s-axis lines

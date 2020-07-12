@@ -69,42 +69,9 @@ class GameMap {
     /***********************
      * Draw the s-axis lines
      ***********************/
-    /*
-    var degrees = -60
-    var radians = this._radians(degrees)
-    var m = Math.tan(radians)
-    var xOffset = 106
-    var yOffset = -22
-    var hexDiameter = 133
-    var mapWidth = 800
-    var mapHeight = 800
-    var sDashFilledLength = 44
-    var sDashBlankLength = 89
-    var sDash = [sDashFilledLength, sDashBlankLength]
-    var xBuffer = -m * mapHeight + xOffset
-    var x0 = 0 + xOffset
-    var y0 = 0 + yOffset
-    var shifted
+    var s = this._axesInfo().s
 
-    // Draw first set of lines with first set of offsets
-    this._drawDashedLines(ctx, sDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#ff0000', xBuffer)
-
-    // Shift first set of offsets to second set of offsets
-    shifted = this._shiftx0y0(x0, y0, radians, sDashFilledLength)
-    x0 = shifted.x0
-    y0 = shifted.y0
-
-    // Draw second set of lines with second set of offsets
-    this._drawDashedLines(ctx, sDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#00ff00', xBuffer)
-
-    // Shift second set of offsets to third set of offsets
-    shifted = this._shiftx0y0(x0, y0, radians, sDashFilledLength)
-    x0 = shifted.x0
-    y0 = shifted.y0
-
-    // Draw third set of lines with third set of offsets
-    this._drawDashedLines(ctx, sDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#0000ff', xBuffer)
-    */
+    this._drawHexAxisLines(ctx, s)
   }
 
   _axesInfo() {
@@ -121,11 +88,12 @@ class GameMap {
       44,
       89,
       '#ff0000',
-      0,
+      false,
       undefined,
       94,
       true,
-      2
+      2,
+      0
     )
 
     var r = new Axis(
@@ -138,14 +106,33 @@ class GameMap {
       44,
       89,
       '#00ff00',
-      0,
+      false,
       0,
       94,
       false,
-      1
+      1,
+      0
     )
 
-    return { q, r }
+    var s = new Axis(
+      's',
+      -60,
+      106,
+      133,
+      800,
+      800,
+      44,
+      89,
+      '#0000ff',
+      true,
+      0,
+      0,
+      false,
+      2,
+      -22
+    )
+
+    return { q, r, s }
   }
 
   _drawHexAxisLines(ctx, axis) {

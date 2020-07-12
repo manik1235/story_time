@@ -144,11 +144,12 @@ class GameMap {
     var sDashFilledLength = 44
     var sDashBlankLength = 89
     var sDash = [sDashFilledLength, sDashBlankLength]
-    var x0 = 800
+    var xBuffer = -m * mapHeight
+    var x0 = 0
     var y0 = 0
 
     // Draw first set of lines with first set of offsets
-    this._drawDashedLines(ctx, sDash, x0, y0, m, mapWidth, mapHeight, [0, hexDiameter], '#ff0000')
+    this._drawDashedLines(ctx, sDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#ff0000', xBuffer)
 
     /*
     // Shift first set of offsets to second set of offsets
@@ -167,7 +168,7 @@ class GameMap {
     */
   }
 
-  _drawDashedLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter, color) {
+  _drawDashedLines(ctx, dash, x0, y0, m, mapWidth, mapHeight, hexDiameter, color, xBuffer) {
     var line
     var xStep = hexDiameter[0]
     var yStep = hexDiameter[1]
@@ -175,7 +176,7 @@ class GameMap {
     ctx.strokeStyle = color
     ctx.setLineDash(dash)
     ctx.beginPath()
-    for (var xi = x0, yi = y0; xi <= mapWidth && yi <= mapHeight; xi += xStep, yi += yStep) {
+    for (var xi = x0, yi = y0; xi <= mapWidth + xBuffer && yi <= mapHeight; xi += xStep, yi += yStep) {
       line = this._getLinex1x2y1y2(xi, yi, m, mapWidth, mapHeight)
       ctx.moveTo(line.x1, line.y1);
       ctx.lineTo(line.x2, line.y2);
@@ -204,12 +205,12 @@ class GameMap {
     } else {
       possible_y = m * mapWidth + b
       possible_x = (mapHeight - b) / m
-      if (possible_x >= 0) {
+      if (possible_x < 0) {
+        x2 = 0
+        y2 = b
+      } else {
         x2 = possible_x
         y2 = mapHeight
-      } else {
-        x2 = mapWidth
-        y2 = possible_y
       }
     }
 

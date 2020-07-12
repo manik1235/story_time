@@ -81,7 +81,7 @@ class GameMap {
     this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#ff0000', xBuffer)
 
     // Shift first set of offsets to second set of offsets
-    shifted = this._shiftx0y0(x0, y0, radians, m, qDashFilledLength)
+    shifted = this._shiftx0y0(x0, y0, radians, qDashFilledLength)
     x0 = shifted.x0
     y0 = shifted.y0
 
@@ -89,7 +89,7 @@ class GameMap {
     this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#00ff00', xBuffer)
 
     // Shift second set of offsets to third set of offsets
-    shifted = this._shiftx0y0(x0, y0, radians, m, qDashFilledLength)
+    shifted = this._shiftx0y0(x0, y0, radians, qDashFilledLength)
     x0 = shifted.x0
     y0 = shifted.y0
 
@@ -121,13 +121,15 @@ class GameMap {
       x0 = -mapHeight / m + xOffset
     }
     var y0 = 94
+    var shifted
 
     // Draw first set of lines with first set of offsets
     this._drawDashedLines(ctx, rDash, x0, y0, m, mapWidth, mapHeight, [0, hexDiameter], '#ff0000', xBuffer)
 
     // Shift first set of offsets to second set of offsets
-    x0 = x0 + rDashFilledLength * 1.5
-    y0 = y0 + hexDiameter / 2
+    shifted = this._shiftx0y0(x0, y0, radians, rDashFilledLength, hexDiameter)
+    x0 = shifted.x0
+    y0 = shifted.y0
 
     // Draw second set of lines with second set of offsets
     this._drawDashedLines(ctx, rDash, x0, y0, m, mapWidth, mapHeight, [0, hexDiameter], '#00ff00', xBuffer)
@@ -149,12 +151,13 @@ class GameMap {
     var xBuffer = -m * mapHeight + xOffset
     var x0 = 0 + xOffset
     var y0 = 0 + yOffset
+    var shifted
 
     // Draw first set of lines with first set of offsets
     this._drawDashedLines(ctx, sDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#ff0000', xBuffer)
 
     // Shift first set of offsets to second set of offsets
-    shifted = this._shiftx0y0(x0, y0, radians, m, qDashFilledLength)
+    shifted = this._shiftx0y0(x0, y0, radians, sDashFilledLength)
     x0 = shifted.x0
     y0 = shifted.y0
 
@@ -162,7 +165,7 @@ class GameMap {
     this._drawDashedLines(ctx, sDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#00ff00', xBuffer)
 
     // Shift second set of offsets to third set of offsets
-    shifted = this._shiftx0y0(x0, y0, radians, m, qDashFilledLength)
+    shifted = this._shiftx0y0(x0, y0, radians, sDashFilledLength)
     x0 = shifted.x0
     y0 = shifted.y0
 
@@ -170,9 +173,19 @@ class GameMap {
     this._drawDashedLines(ctx, sDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#0000ff', xBuffer)
   }
 
-  _shiftx0y0(x0, y0, radians, m, dashFilledLength) {
-    x0 = x0 + Math.cos(radians) * dashFilledLength * 3
-    y0 = y0 + Math.sin(radians) * dashFilledLength
+  _shiftx0y0(x0, y0, radians, dashFilledLength, hexDiameter) {
+    if (radians === 0 || radians === Math.PI) {
+      // Shift horizontal lines
+      x0 = x0 + dashFilledLength * 1.5
+      y0 = y0 + hexDiameter / 2
+    } else if (radians === Math.PI / 2 || radians === 3 * Math.PI / 2) {
+      // Shift vertical lines
+      console.log("Not implemented")
+    } else {
+      // Shift angled lines
+      x0 = x0 + Math.cos(radians) * dashFilledLength * 3
+      y0 = y0 + Math.sin(radians) * dashFilledLength
+    }
 
     return { x0, y0 }
   }

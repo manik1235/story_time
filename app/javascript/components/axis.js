@@ -2,37 +2,58 @@ class Axis {
   constructor(name, degrees, xOffset, yOffset, hexDiameter, mapWidth, mapHeight, dashFilledLength, dashBlankLength, color) {
     this.name = name
     this.degrees = degrees
+    this._xOffset = xOffset
+    this._y0 = yOffset
     this.hexDiameter = hexDiameter
     this.mapWidth = mapWidth
     this.mapHeight = mapHeight
     this.dashFilledLength = dashFilledLength
     this.dashBlankLength = dashBlankLength
-    this._xOffset = xOffset
     this.color = color
-    this.y0 = yOffset
   }
 
-  get x0() {
-    if (this.m > 0) {
-      // Calculate the extra distance needed to start to the left of the canvas
-      //   if the slope is positive
-      return -this.mapHeight / this.m + this._xOffset
-    } else {
-      // Otherwise only the xOffset is needed
-      return this._xOffset
+  get dash() {
+    return [this.dashFilledLength, this.dashBlankLength]
+  }
+
+  drawHexDashedLines(ctx) {
+    var shifted
+    var x0 = this._x0
+    var y0 = this._y0
+
+    // Draw first set of lines
+    this._drawDashedLines(ctx, x0, y0)
+
+    for (var i = this.shifts; i > 0; i--) {
+      // Shift set of offsets to next set of offsets
+      shifted = this.shift(x0, y0)
+      x0 = shifted.x0
+      y0 = shifted.y0
+
+      // Draw shifted lines
+      this._drawDashedLines(ctx, x0, y0)
     }
   }
 
-  get _xBuffer() {
-    if (this.m < 0) {
-      // Calculate the extra buffer needed when drawing lines that will pass the
-      //   mapWidth boundary
-      return -this.m * this.mapHeight + this._xOffset
+  get m() {
+    return Math.tan(this.radians)
+  }
+
+  shift(x0, y0) {
+    if (this.radians === 0 || this.radians === Math.PI) {
+      // Shift horizontal lines
+      x0 = x0 + this.dashFilledLength * 1.5
+      y0 = y0 + this.hexDiameter / 2
+    } else if (this.radians === Math.PI / 2 || this.radians === 3 * Math.PI / 2) {
+      // Shift vertical lines
+      console.log("Not implemented")
     } else {
-      // No extra buffer needed because the lines will always start on or to the
-      //   left of the canvas.
-      return 0
+      // Shift angled lines
+      x0 = x0 + Math.cos(this.radians) * this.dashFilledLength * 3
+      y0 = y0 + Math.sin(this.radians) * this.dashFilledLength
     }
+
+    return { x0, y0 }
   }
 
   get shifts() {
@@ -50,14 +71,6 @@ class Axis {
 
   get radians() {
     return this._radians(this.degrees)
-  }
-
-  get m() {
-    return Math.tan(this.radians)
-  }
-
-  get dash() {
-    return [this.dashFilledLength, this.dashBlankLength]
   }
 
   get xStep() {
@@ -83,46 +96,6 @@ class Axis {
     } else {
       // Angled Lines
       return 0
-    }
-  }
-
-  _radians(degrees) {
-    return degrees * (Math.PI / 180)
-  }
-
-  shift(x0, y0) {
-    if (this.radians === 0 || this.radians === Math.PI) {
-      // Shift horizontal lines
-      x0 = x0 + this.dashFilledLength * 1.5
-      y0 = y0 + this.hexDiameter / 2
-    } else if (this.radians === Math.PI / 2 || this.radians === 3 * Math.PI / 2) {
-      // Shift vertical lines
-      console.log("Not implemented")
-    } else {
-      // Shift angled lines
-      x0 = x0 + Math.cos(this.radians) * this.dashFilledLength * 3
-      y0 = y0 + Math.sin(this.radians) * this.dashFilledLength
-    }
-
-    return { x0, y0 }
-  }
-
-  drawHexDashedLines(ctx) {
-    var shifted
-    var x0 = this.x0
-    var y0 = this.y0
-
-    // Draw first set of lines
-    this._drawDashedLines(ctx, x0, y0)
-
-    for (var i = this.shifts; i > 0; i--) {
-      // Shift set of offsets to next set of offsets
-      shifted = this.shift(x0, y0)
-      x0 = shifted.x0
-      y0 = shifted.y0
-
-      // Draw shifted lines
-      this._drawDashedLines(ctx, x0, y0)
     }
   }
 
@@ -169,6 +142,33 @@ class Axis {
     }
 
     return { x1, x2, y1, y2 }
+  }
+
+  _radians(degrees) {
+    return degrees * (Math.PI / 180)
+  }
+
+  get _x0() {
+    if (this.m > 0) {
+      // Calculate the extra distance needed to start to the left of the canvas
+      //   if the slope is positive
+      return -this.mapHeight / this.m + this._xOffset
+    } else {
+      // Otherwise only the xOffset is needed
+      return this._xOffset
+    }
+  }
+
+  get _xBuffer() {
+    if (this.m < 0) {
+      // Calculate the extra buffer needed when drawing lines that will pass the
+      //   mapWidth boundary
+      return -this.m * this.mapHeight + this._xOffset
+    } else {
+      // No extra buffer needed because the lines will always start on or to the
+      //   left of the canvas.
+      return 0
+    }
   }
 }
 

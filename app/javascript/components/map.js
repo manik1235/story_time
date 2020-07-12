@@ -53,7 +53,6 @@ class GameMap {
     /***********************
      * Draw the q-axis lines
      ***********************/
-    /*
     var degrees = 60
     var radians = this._radians(degrees)
     var m = Math.tan(radians)
@@ -93,12 +92,10 @@ class GameMap {
 
     // Draw third set of lines with third set of offsets
     this._drawDashedLines(ctx, qDash, x0, y0, m, mapWidth, mapHeight, [hexDiameter, 0], '#0000ff', xBuffer)
-    */
 
     /***********************
      * Draw the r-axis lines
      ***********************/
-    /*
     var degrees = 0
     var radians = this._radians(degrees)
     var m = Math.tan(radians)
@@ -131,7 +128,6 @@ class GameMap {
 
     // Draw second set of lines with second set of offsets
     this._drawDashedLines(ctx, rDash, x0, y0, m, mapWidth, mapHeight, [0, hexDiameter], '#00ff00', xBuffer)
-    */
 
     /***********************
      * Draw the s-axis lines

@@ -24,8 +24,11 @@ describe('components/game_map.js', function() {
   })
 
   afterAll(function() {
-    // Tear out the map div
-    document.getElementById(mapId).remove()
+    // Remove a matching element if it already exists
+    var existingNode = document.getElementById(mapId)
+    if (existingNode) {
+      existingNode.remove()
+    }
   })
 
   describe('#addMap', function() {
@@ -40,6 +43,11 @@ describe('components/game_map.js', function() {
 
       gameMap.addMap(mapId)
       expect(document.getElementById('map-component__map-layer')).toEqual(true)
+    })
+
+    it('adds the grid layer component html to the DOM', function() {
+      pending()
+      expect(document.getElementById('map-component__grid-layer')).toEqual(true)
     })
   })
 

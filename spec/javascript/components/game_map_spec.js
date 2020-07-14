@@ -4,6 +4,13 @@ describe('components/game_map.js', function() {
   var mapId
   var gameMap
 
+  function setupMapDiv(mapId) {
+    // GameMap requires an element to set itself up
+    var div = document.createElement('div')
+    div.setAttribute('id', mapId)
+    document.body.appendChild(div)
+  }
+
   beforeEach(function() {
     // Reset the items being tested
     mapId = 'map'
@@ -21,14 +28,26 @@ describe('components/game_map.js', function() {
     document.getElementById(mapId).remove()
   })
 
+  describe('#addMap', function() {
+    it('adds the map layer component html to the DOM', function() {
+      pending()
+      /* I have not been able to clear this error
+       * Error: Cannot find module './maps/undefined' in http://10.200.128.102:35003/packs/js/specs-5f4cae75676e72fff026.js (line 525)
+       * error properties: Object({ code: 'MODULE_NOT_FOUND' })
+       * <Jasmine>
+       */
+      setupMapDiv(mapId)
+
+      gameMap.addMap(mapId)
+      expect(document.getElementById('map-component__map-layer')).toEqual(true)
+    })
+  })
+
   describe('#_axes', function() {
     it('throws an error if the map is missing axis attributes', function() {
-      // GameMap requires an element to set itself up
-      var div = document.createElement('div')
-      div.setAttribute('id', mapId)
-      document.body.appendChild(div)
+      setupMapDiv(mapId)
 
-      expect(function() { gameMap._axes() }).toThrowError(SyntaxError, 'JSON.parse: unexpected character at line 1 column 1 of the JSON data')
+      expect(function(){ gameMap._axes() }).toThrowError(SyntaxError, 'JSON.parse: unexpected character at line 1 column 1 of the JSON data')
     })
 
     it('returns an object containing q, r, and s axes', function() {

@@ -6,6 +6,6 @@ $(document).on('turbolinks:load', function() {
     var gameMap = new GameMap(selector)
     gameMap.addMap()
   } else {
-    console.log(`Error: Element with id='${selector}' is required for the GameMap.`)
+    console.log(`Error: Element with id='${selector}' required to be present in the DOM for the GameMap to work.`)
   }
 })

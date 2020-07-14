@@ -1,5 +1,5 @@
 describe("components/axis.js", function() {
-  it("tests nothing", function() {
-    expect(true).toEqual(false)
+  it("pending", function() {
+    pending("pending")
   })
 })

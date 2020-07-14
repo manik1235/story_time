@@ -8,6 +8,6 @@ describe("utilities/hex_stuff.js", function() {
   })
 
   it("tests nothing", function() {
-    expect(true).toEqual(true)
+    pending('To be implemented')
   })
 })

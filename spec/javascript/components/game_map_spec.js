@@ -49,6 +49,10 @@ describe('components/game_map.js', function() {
       pending()
       expect(document.getElementById('map-component__grid-layer')).toEqual(true)
     })
+
+    it('logs an error to the console when no suitable element is found', function() {
+      pending()
+    })
   })
 
   describe('#_axes', function() {

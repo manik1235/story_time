@@ -6,6 +6,12 @@ class GameMap {
   }
 
   addMap() {
+    // Return early if the element cannot be found
+    if (!this._element) {
+      console.log(`Error: Element with id='${this._selector}' required to be present in the DOM for the GameMap to work.`)
+      return
+    }
+
     // Add component html to DOM
     this._element.innerHTML = this._html()
 
@@ -28,10 +34,9 @@ class GameMap {
   }
 
   _drawHexGrid(ctx) {
-    var axes = this._axes()
-    axes.q.drawLines(ctx)
-    axes.r.drawLines(ctx)
-    axes.s.drawLines(ctx)
+    for (const axis in this._axes()) {
+      this._axes()[axis].drawLines(ctx)
+    }
   }
 
   _drawMapImage(ctx) {

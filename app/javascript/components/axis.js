@@ -61,7 +61,7 @@ class Axis {
       // Horizontal
       return 1
     } else if (this.radians === Math.PI / 2 || this.radians === 3 * Math.PI / 2) {
-      // vertical lines
+      // Vertical
       console.log("Not implemented")
     } else {
       // Angled
@@ -75,43 +75,41 @@ class Axis {
 
   get xStep() {
     if (this.radians === 0 || this.radians === Math.PI) {
-      // Horizontal lines
+      // Horizontal
       return 0
     } else if (this.radians === Math.PI / 2 || this.radians === 3 * Math.PI / 2) {
-      // vertical lines
+      // Vertical
       console.log("Not implemented")
     } else {
-      // Angled lines
+      // Angled
       return this.hexDiameter
     }
   }
 
   get yStep() {
     if (this.radians === 0 || this.radians === Math.PI) {
-      // Horizontal Lines
+      // Horizontal
       return this.hexDiameter
     } else if (this.radians === Math.PI / 2 || this.radians === 3 * Math.PI / 2) {
-      // vertical lines
+      // Vertical
       console.log("Not implemented")
     } else {
-      // Angled Lines
+      // Angled
       return 0
     }
   }
 
   _drawDashedLines(ctx, x0, y0) {
     var line
-    var xStep = this.xStep
-    var yStep = this.yStep
 
     ctx.strokeStyle = this.color
     ctx.setLineDash(this.dash)
     ctx.beginPath()
     for (var xi = x0, yi = y0; xi <= this.mapWidth + this._xBuffer && yi <= this.mapHeight; xi += this.xStep, yi += this.yStep) {
       line = this._getLineCoordinates(xi, yi)
-      ctx.moveTo(line.x1, line.y1);
-      ctx.lineTo(line.x2, line.y2);
-      ctx.stroke();
+      ctx.moveTo(line.x1, line.y1)
+      ctx.lineTo(line.x2, line.y2)
+      ctx.stroke()
     }
   }
 

@@ -1,172 +1,155 @@
+import { Line } from './line.js'
+
 class Axis {
   constructor(dataset) {
     this.name = dataset.name
-    this.degrees = dataset.degrees
+    this._degrees = dataset.degrees
     this._xOffset = dataset.x_offset
     this._y0 = dataset.y_offset
-    this.hexDiameter = dataset.hex_diameter
-    this.mapWidth = dataset.map_width
-    this.mapHeight = dataset.map_height
-    this.dashFilledLength = dataset.dash_filled_length
-    this.dashBlankLength = dataset.dash_blank_length
-    this.color = dataset.color
+    this._hexDiameter = dataset.hex_diameter
+    this._mapWidth = dataset.map_width
+    this._mapHeight = dataset.map_height
+    this._dashFilledLength = dataset.dash_filled_length
+    this._dashBlankLength = dataset.dash_blank_length
+    this._color = dataset.color
   }
 
-  get dash() {
-    return [this.dashFilledLength, this.dashBlankLength]
+  get _dash() {
+    return [this._dashFilledLength, this._dashBlankLength]
+  }
+
+  get _undef() {
+    // Undefined slope (vertical)
+    //return Math.tan(1/0)
+    return Line._mUndef()
+  }
+
+  get _mapBoundaries() {
+    return {
+      minX: 0,
+      minY: 0,
+      maxX: this._mapWidth,
+      maxY: this._mapHeight
+    }
+  }
+
+  get leftBorder() {
+    if (!this._leftBorder) {
+      let lineOptions = {
+        m: this._undef,
+        b: 0,
+        xShift: 0,
+        yShift: 0,
+        boundaries: this._mapBoundaries
+      }
+      this._leftBorder = this._line(lineOptions)
+    }
+
+    return this._leftBorder
+  }
+
+  get rightBorder() {
+    if (!this._rightBorder) {
+      let lineOptions = {
+        m: this._undef,
+        b: 0,
+        xShift: this._mapWidth,
+        yShift: 0,
+        boundaries: this._mapBoundaries
+      }
+      this._leftBorder = this._line(lineOptions)
+    }
+
+    return this._rightBorder
+  }
+
+  get topBorder() {
+    if (!this._topBorder) {
+      let lineOptions = {
+        m: 0,
+        b: 0,
+        xShift: 0,
+        yShift: 0,
+        boundaries: this._mapBoundaries
+      }
+      this._topBorder = this._line(lineOptions)
+    }
+
+    return this._rightBorder
+  }
+
+  get bottomBorder() {
+    if (!this._topBorder) {
+      let lineOptions = {
+        m: 0,
+        b: 0,
+        xShift: 0,
+        yShift: this._mapHeight,
+        boundaries: this._mapBoundaries
+      }
+      this._bottomBorder = this._line(lineOptions)
+    }
+
+    return this._bottomBorder
+  }
+
+  get borders() {
+    return {
+      top: this._topBorder,
+      bottom: this._bottomBorder,
+      left: this._leftBorder,
+      right: this._rightBorder
+    }
   }
 
   drawLines(ctx) {
-    var shifted
-    var x0 = this._x0
-    var y0 = this._y0
-
-    // Draw first set of lines
-    this._drawDashedLines(ctx, x0, y0)
-
-    for (var i = this.shifts; i > 0; i--) {
-      // Shift set of offsets to next set of offsets
-      shifted = this.shift(x0, y0)
-      x0 = shifted.x0
-      y0 = shifted.y0
-
-      // Draw shifted lines
-      this._drawDashedLines(ctx, x0, y0)
-    }
-  }
-
-  get m() {
-    return Math.tan(this.radians)
-  }
-
-  shift(x0, y0) {
-    if (this.radians === 0 || this.radians === Math.PI) {
-      // Shift horizontal lines
-      x0 = x0 + this.dashFilledLength * 1.5
-      y0 = y0 + this.hexDiameter / 2
-    } else if (this.radians === Math.PI / 2 || this.radians === 3 * Math.PI / 2) {
-      // Shift vertical lines
-      console.log("Not implemented")
-    } else {
-      // Shift angled lines
-      x0 = x0 + Math.cos(this.radians) * this.dashFilledLength * 3
-      y0 = y0 + Math.sin(this.radians) * this.dashFilledLength
-    }
-
-    return { x0, y0 }
-  }
-
-  get shifts() {
-    if (this.radians === 0 || this.radians === Math.PI) {
-      // Horizontal
-      return 1
-    } else if (this.radians === Math.PI / 2 || this.radians === 3 * Math.PI / 2) {
-      // Vertical
-      console.log("Not implemented")
-    } else {
-      // Angled
-      return 2
-    }
-  }
-
-  get radians() {
-    return this._radians(this.degrees)
-  }
-
-  get xStep() {
-    if (this.radians === 0 || this.radians === Math.PI) {
-      // Horizontal
-      return 0
-    } else if (this.radians === Math.PI / 2 || this.radians === 3 * Math.PI / 2) {
-      // Vertical
-      console.log("Not implemented")
-    } else {
-      // Angled
-      return this.hexDiameter
-    }
-  }
-
-  get yStep() {
-    if (this.radians === 0 || this.radians === Math.PI) {
-      // Horizontal
-      return this.hexDiameter
-    } else if (this.radians === Math.PI / 2 || this.radians === 3 * Math.PI / 2) {
-      // Vertical
-      console.log("Not implemented")
-    } else {
-      // Angled
-      return 0
-    }
-  }
-
-  _drawDashedLines(ctx, x0, y0) {
-    var line
-
-    ctx.strokeStyle = this.color
-    ctx.setLineDash(this.dash)
-    ctx.beginPath()
-    for (var xi = x0, yi = y0; xi <= this.mapWidth + this._xBuffer && yi <= this.mapHeight; xi += this.xStep, yi += this.yStep) {
-      line = this._getLineCoordinates(xi, yi)
-      ctx.moveTo(line.x1, line.y1)
-      ctx.lineTo(line.x2, line.y2)
-      ctx.stroke()
-    }
-  }
-
-  _getLineCoordinates(x1, y1) {
-    var x2
-    var y2
-    var b = y1 - this.m * x1
-
-    var possible_y = this.m * this.mapWidth + b
-    var possible_x = (this.mapHeight - b) / this.m
-
-    if (this.m >= 0) {
-      if (possible_y > this.mapHeight) {
-        x2 = possible_x
-        y2 = this.mapHeight
-      } else {
-        x2 = this.mapWidth
-        y2 = possible_y
-      }
-    } else {
-      if (possible_x < 0) {
-        x2 = 0
-        y2 = b
-      } else {
-        x2 = possible_x
-        y2 = this.mapHeight
+    // Get the mainLine
+    var lineOptions = {
+      m: this._m,
+      b: this._b,
+      xShift: 0,
+      yShift: 0,
+      boundaries: {
+        minX: 0,
+        minY: 0,
+        maxX: this._mapWidth,
+        maxY: this._mapHeight
       }
     }
+    var mainLine = this._line(lineOptions)
 
-    return { x1, x2, y1, y2 }
+    // Get the start and end coordinates based on the map boundaries
+    var x1, y1, x2, y2
+    var coordinates = { x1, y1, x2, y2 }
+
+    coordinates = mainLine.coordinates(this.borders)
+
+
+
+
+
+    // Fill the drawable area with lines, shifted by the hexDiameter
+    // Draw from the mainLine up/left and then again down/right
+
+
   }
 
-  _radians(degrees) {
-    return degrees * (Math.PI / 180)
+  _line(lineOptions) {
+    return new Line(lineOptions)
   }
 
-  get _x0() {
-    if (this.m > 0) {
-      // Calculate the extra distance needed to start to the left of the canvas
-      //   if the slope is positive
-      return -this.mapHeight / this.m + this._xOffset
+  get _m() {
+    var m = Math.tan(this._radians)
+
+    if (isNaN(m)) {
+      return "NaN"
     } else {
-      // Otherwise only the xOffset is needed
-      return this._xOffset
+      return m
     }
   }
 
-  get _xBuffer() {
-    if (this.m < 0) {
-      // Calculate the extra buffer needed when drawing lines that will pass the
-      //   mapWidth boundary
-      return -this.m * this.mapHeight + this._xOffset
-    } else {
-      // No extra buffer needed because the lines will always start on or to the
-      //   left of the canvas.
-      return 0
-    }
+  get _radians() {
+    return this._degrees * (Math.PI / 180)
   }
 }
 

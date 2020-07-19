@@ -26,17 +26,18 @@ class GameMap {
   }
 
   _axes() {
-    var q = new Axis(JSON.parse(this._element.dataset.q))
-    var r = new Axis(JSON.parse(this._element.dataset.r))
-    var s = new Axis(JSON.parse(this._element.dataset.s))
+    var axes = []
+    this._map.axes.forEach(axis => axes.push(new Axis(JSON.parse(axis))))
 
-    return { q, r, s }
+    return axes
+  }
+
+  get _dataset() {
+    return this._element.dataset
   }
 
   _drawHexGrid(ctx) {
-    for (const axis in this._axes()) {
-      this._axes()[axis].drawLines(ctx)
-    }
+    this._axes().forEach(axis => axis.drawLines(ctx))
   }
 
   _drawMapImage(ctx) {
@@ -48,7 +49,7 @@ class GameMap {
     image.onload = function() {
       ctx.drawImage(image, 0, 0)
     }
-    image.src = imagePath('./maps/' + this._element.dataset.mapBackground)
+    image.src = imagePath('./maps/' + this._map.background)
   }
 
   get _element() {
@@ -62,6 +63,10 @@ class GameMap {
       <canvas id="map-component__grid-layer" height="800" width="800"
         style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
     `
+  }
+
+  get _map() {
+    return JSON.parse(this._dataset.map)
   }
 }
 

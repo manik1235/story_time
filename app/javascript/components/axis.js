@@ -2,13 +2,13 @@ class Axis {
   constructor(dataset) {
     this.name = dataset.name
     this.degrees = dataset.degrees
-    this._xOffset = dataset.xOffset
-    this._y0 = dataset.yOffset
-    this.hexDiameter = dataset.hexDiameter
-    this.mapWidth = dataset.mapWidth
-    this.mapHeight = dataset.mapHeight
-    this.dashFilledLength = dataset.dashFilledLength
-    this.dashBlankLength = dataset.dashBlankLength
+    this._xOffset = dataset.x_offset
+    this._y0 = dataset.y_offset
+    this.hexDiameter = dataset.hex_diameter
+    this.mapWidth = dataset.map_width
+    this.mapHeight = dataset.map_height
+    this.dashFilledLength = dataset.dash_filled_length
+    this.dashBlankLength = dataset.dash_blank_length
     this.color = dataset.color
   }
 

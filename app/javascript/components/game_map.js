@@ -13,16 +13,21 @@ class GameMap {
     }
 
     // Add component html to DOM
-    this._element.innerHTML = this._html()
+    this._addHtmlToDom()
 
     // Get the canvas context for the map layer and draw the map image
     this._drawMapImage(
       document.getElementById('map-component__map-layer').getContext('2d')
     )
 
+    // Get the canvas context for the map layer and draw the grid
     this._drawHexGrid(
       document.getElementById('map-component__grid-layer').getContext('2d')
     )
+  }
+
+  _addHtmlToDom() {
+    this._element.innerHTML = this._html()
   }
 
   _axes() {

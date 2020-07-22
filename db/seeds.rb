@@ -6,10 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-welcomes = [{ id: 1, path: "items", title: "Items", created_at: "2020-06-10 22:13:32", updated_at: "2020-06-10 22:13:32" }, { id: 2, path: "maps", title: "Maps", created_at: "2020-06-10 22:13:32", updated_at: "2020-06-10 22:13:32" }, { id: 3, path: "npcs", title: "Npcs", created_at: "2020-06-10 22:13:32", updated_at: "2020-06-10 22:13:32" }, { id: 4, path: "users", title: "Users", created_at: "2020-06-10 22:13:32", updated_at: "2020-06-10 22:13:32" }, { id: 5, path: "episodes", title: "Episodes", created_at: "2020-06-12 01:17:31", updated_at: "2020-06-12 01:17:31" }, { id: 6, path: "hexes", title: "Hexes", created_at: "2020-06-12 01:17:54", updated_at: "2020-06-12 16:13:11" }, { id: 7, path: "series_index", title: "Series", created_at: "2020-06-13 23:52:14", updated_at: "2020-06-13 23:53:23" }]
-
-welcomes.each { |welcome| Welcome.create(welcome) }
-
 episodes = [{ id: 1, name: "The Prequel", url: "http://google.com", number: 1, created_at: "2020-06-12 00:55:00", updated_at: "2020-06-13 05:43:01", series_id: 1 }, { id: 2, name: "The Episode After the Prequel", url: "http://duckduckgo.com", number: 2, created_at: "2020-06-12 01:08:52", updated_at: "2020-06-13 05:43:01", series_id: 1 }, { id: 3, name: "The First One", url: "http://yahoo.com", number: 3, created_at: "2020-06-12 01:09:19", updated_at: "2020-06-13 05:43:01", series_id: 1 }, { id: 4, name: "Cooking with Alice", url: nil, number: 1, created_at: "2020-06-13 05:45:25", updated_at: "2020-06-13 05:45:25", series_id: 2 }, { id: 5, name: "Cooking with Bilsiph", url: nil, number: 2, created_at: "2020-06-13 05:47:02", updated_at: "2020-06-13 05:47:02", series_id: 2 }]
 
 episodes.each { |episode| Episode.create(episode) }

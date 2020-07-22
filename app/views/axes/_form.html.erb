@@ -1,0 +1,72 @@
+<%= form_with(model: axis) do |form| %>
+  <% if axis.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(axis.errors.count, "error") %> prohibited this axis from being saved:</h2>
+
+      <ul>
+        <% axis.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :degrees %>
+    <%= form.number_field :degrees %>
+  </div>
+
+  <div class="field">
+    <%= form.label :x_offset %>
+    <%= form.number_field :x_offset %>
+  </div>
+
+  <div class="field">
+    <%= form.label :y_offset %>
+    <%= form.number_field :y_offset %>
+  </div>
+
+  <div class="field">
+    <%= form.label :hex_diameter %>
+    <%= form.number_field :hex_diameter %>
+  </div>
+
+  <div class="field">
+    <%= form.label :map_width %>
+    <%= form.number_field :map_width %>
+  </div>
+
+  <div class="field">
+    <%= form.label :map_height %>
+    <%= form.number_field :map_height %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dash_filled_length %>
+    <%= form.number_field :dash_filled_length %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dash_blank_length %>
+    <%= form.number_field :dash_blank_length %>
+  </div>
+
+  <div class="field">
+    <%= form.label :color %>
+    <%= form.text_field :color %>
+  </div>
+
+  <div class="field">
+    <%= form.label :map_id %>
+    <%= form.number_field :map_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

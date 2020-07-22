@@ -1,1 +1,4 @@
-<div class="w-25">Controls</div>
+<div class="w-25">
+  <%= render partial: "form", locals: { map: @map } %>
+  <%= render partial: "axes/form", collection: @map.axes, as: :axis %>
+</div>

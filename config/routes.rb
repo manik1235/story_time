@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root "series#index"
 
+  resources :axis, only: [:update, :edit]
   resources :episodes
   resources :hexes
   resources :maps

@@ -1,14 +1,14 @@
 class Axis {
   constructor(options) {
     this.name = options.name
-    this.degrees = options.degrees
-    this._xOffset = options.x_offset
-    this._y0 = options.y_offset
-    this.hexDiameter = options.hex_diameter
-    this.mapWidth = options.map_width
-    this.mapHeight = options.map_height
-    this.dashFilledLength = options.dash_filled_length
-    this.dashBlankLength = options.dash_blank_length
+    this.degrees = parseFloat(options.degrees)
+    this._xOffset = parseFloat(options.x_offset)
+    this._y0 = parseFloat(options.y_offset)
+    this.hexDiameter = parseFloat(options.hex_diameter)
+    this.mapWidth = parseFloat(options.map_width)
+    this.mapHeight = parseFloat(options.map_height)
+    this.dashFilledLength = parseFloat(options.dash_filled_length)
+    this.dashBlankLength = parseFloat(options.dash_blank_length)
     this.color = options.color
   }
 

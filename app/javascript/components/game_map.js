@@ -3,6 +3,8 @@ import { Axis } from './axis'
 class GameMap {
   constructor(selector) {
     this._selector = selector
+    this._axesCache = []
+    this._mapCache
   }
 
   addMap() {
@@ -27,14 +29,7 @@ class GameMap {
   }
 
   _addHtmlToDom() {
-    this._element.innerHTML = this._html()
-  }
-
-  _axes() {
-    var axes = []
-    this._map.axes.forEach(axis => axes.push(new Axis(JSON.parse(axis))))
-
-    return axes
+   this._element.innerHTML = this._html()
   }
 
   get _dataset() {
@@ -42,7 +37,7 @@ class GameMap {
   }
 
   _drawHexGrid(ctx) {
-    this._axes().forEach(axis => axis.drawLines(ctx))
+    this._axes.forEach(axis => axis.drawLines(ctx))
   }
 
   _drawMapImage(ctx) {
@@ -71,7 +66,52 @@ class GameMap {
   }
 
   get _map() {
-    return JSON.parse(this._dataset.map)
+    let map = {}
+
+    if (this._mapCache) {
+      map = this._mapCache
+    } else {
+      let mapElements = document.getElementsByClassName('js-map-data')
+
+      for (let elem of mapElements) {
+        let id = elem.getAttribute('id').replace('map_', '')
+        map[id] = elem.value
+      }
+
+      this._mapCache = map
+    }
+
+    return map
+  }
+
+  get _axes() {
+    let axes = []
+
+    if (this._axesCache.length === 0) {
+      // Get the axis data based on the current values of all the input boxes
+      let axisElements = document.getElementsByClassName('js-axis-data')
+      let axisObjects = {}
+
+      for (let elem of axisElements) {
+        let property = elem.getAttribute('id').replace('axis_', '')
+        let axisId = elem.dataset.id
+
+        if (!axisObjects[axisId]) {
+          axisObjects[axisId] = {}
+        }
+        axisObjects[axisId][property] = elem.value
+      }
+
+      for (let axis in axisObjects) {
+        axes.push(new Axis(axisObjects[axis]))
+      }
+
+      this._axesCache = axes
+    } else {
+      axes = this._axesCache
+    }
+
+    return axes
   }
 }
 

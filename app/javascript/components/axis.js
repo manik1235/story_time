@@ -10,13 +10,14 @@ class Axis {
 
   _addUpdateListener() {
     let elements = document.getElementsByClassName(this._selector)
+    let that = this
 
     for (let index = 0; index < elements.length; index++) {
       let element = elements[index]
       element.addEventListener('change', function(event) {
         // TODO: Use the event to selectively update the proper property
-        this._updateAxis()
-        this.drawLines(this._axisContext)
+        that._updateAxis()
+        that.drawLines(that._axisContext)
       })
     }
   }

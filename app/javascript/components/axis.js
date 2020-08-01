@@ -54,6 +54,9 @@ class Axis {
     var x0 = this._x0
     var y0 = this._y0
 
+    // Clear the old lines from the canvas
+    ctx.clearRect(0, 0, this.mapWidth, this.mapHeight)
+
     // Draw first set of lines
     this._drawDashedLines(ctx, x0, y0)
 

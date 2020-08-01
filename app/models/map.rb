@@ -4,4 +4,8 @@ class Map < ApplicationRecord
   def to_json
     MapSerializer.new(self).to_json
   end
+
+  def number_of_axes
+    axes.count
+  end
 end

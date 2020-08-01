@@ -31,6 +31,10 @@
     <%= form.number_field :z %>
   </div>
 
+  <div class="field">
+    <%= form.hidden_field :number_of_axes, class: "js-map-data" %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

@@ -26,12 +26,12 @@ class GameMap {
     this._axes
   }
 
-  get _axisContext() {
-    return document.getElementById('map-component__grid-layer').getContext('2d')
+  _axisContext(index) {
+    return document.getElementById(`${this._axisSelector(index)}`).getContext('2d')
   }
 
   _addHtmlToDom() {
-   this._element.innerHTML = this._html()
+    this._element.innerHTML = this._html
   }
 
   get _dataset() {
@@ -54,13 +54,30 @@ class GameMap {
     return document.getElementById(this._selector)
   }
 
-  _html() {
+  get _html() {
+    let html = this._mapHtml
+
+    for (let index = 0; index < parseInt(this._map.number_of_axes); index++) {
+      html += this._axisHtml(index)
+    }
+
+    return html
+  }
+
+  get _mapHtml() {
     return `
       <canvas id="map-component__map-layer" height="800" width="800"
-        style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
-      <canvas id="map-component__grid-layer" height="800" width="800"
-        style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
-    `
+        style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>`
+  }
+
+  _axisHtml(index) {
+      return `
+      <canvas id="${this._axisSelector(index)}" height="800" width="800"
+        style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>`
+  }
+
+  _axisSelector(index) {
+    return `map-component__axis-layer-${index}`
   }
 
   get _map() {
@@ -91,7 +108,7 @@ class GameMap {
 
       for (let index = 0; index < axisElements.length; index++) {
         let elem = axisElements[index]
-        axes.push(new Axis(elem.dataset.selector, this._axisContext))
+        axes.push(new Axis(elem.dataset.selector, this._axisContext(index)))
       }
 
       this._axesCache = axes

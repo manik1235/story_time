@@ -1,15 +1,47 @@
 class Axis {
-  constructor(options) {
-    this.name = options.name
-    this.degrees = parseFloat(options.degrees)
-    this._xOffset = parseFloat(options.x_offset)
-    this._y0 = parseFloat(options.y_offset)
-    this.hexDiameter = parseFloat(options.hex_diameter)
-    this.mapWidth = parseFloat(options.map_width)
-    this.mapHeight = parseFloat(options.map_height)
-    this.dashFilledLength = parseFloat(options.dash_filled_length)
-    this.dashBlankLength = parseFloat(options.dash_blank_length)
-    this.color = options.color
+  constructor(selector, ctx) {
+    this._selector = selector
+    this._axisContext = ctx
+
+    this._updateAxis()
+    this.drawLines(this._axisContext)
+    this._addUpdateListener()
+  }
+
+  _addUpdateListener() {
+    let elements = document.getElementsByClassName(this._selector)
+
+    for (let index = 0; index < elements.length; index++) {
+      let element = elements[index]
+      element.addEventListener('change', function(event) {
+        // TODO: Use the event to selectively update the proper property
+        this._updateAxis()
+        this.drawLines(this._axisContext)
+      })
+    }
+  }
+
+  _updateAxis() {
+    // Get the axis data based on the current values of all the input boxes
+    let axisElements = document.getElementsByClassName(this._selector)
+    let axisObject = {}
+
+    for (let elem of axisElements) {
+      let property = elem.getAttribute('name').replace('axis[', '').replace(']', '')
+
+      axisObject[property] = elem.value
+    }
+
+    this.name = axisObject.name
+    this.degrees = parseFloat(axisObject.degrees)
+    this._xOffset = parseFloat(axisObject.x_offset)
+    this._y0 = parseFloat(axisObject.y_offset)
+    this.hexDiameter = parseFloat(axisObject.hex_diameter)
+    this.mapWidth = parseFloat(axisObject.map_width)
+    this.mapHeight = parseFloat(axisObject.map_height)
+    this.dashFilledLength = parseFloat(axisObject.dash_filled_length)
+    this.dashBlankLength = parseFloat(axisObject.dash_blank_length)
+    this.color = axisObject.color
   }
 
   get dash() {

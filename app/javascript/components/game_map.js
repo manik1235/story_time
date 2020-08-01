@@ -22,10 +22,12 @@ class GameMap {
       document.getElementById('map-component__map-layer').getContext('2d')
     )
 
-    // Get the canvas context for the map layer and draw the grid
-    this._drawHexGrid(
-      document.getElementById('map-component__grid-layer').getContext('2d')
-    )
+    // Draw the grid axes
+    this._axes
+  }
+
+  get _axisContext() {
+    return document.getElementById('map-component__grid-layer').getContext('2d')
   }
 
   _addHtmlToDom() {
@@ -34,10 +36,6 @@ class GameMap {
 
   get _dataset() {
     return this._element.dataset
-  }
-
-  _drawHexGrid(ctx) {
-    this._axes.forEach(axis => axis.drawLines(ctx))
   }
 
   _drawMapImage(ctx) {
@@ -89,21 +87,11 @@ class GameMap {
 
     if (this._axesCache.length === 0) {
       // Get the axis data based on the current values of all the input boxes
-      let axisElements = document.getElementsByClassName('js-axis-data')
-      let axisObjects = {}
+      let axisElements = document.getElementsByClassName('js-axis-form')
 
-      for (let elem of axisElements) {
-        let property = elem.getAttribute('id').replace('axis_', '')
-        let axisId = elem.dataset.id
-
-        if (!axisObjects[axisId]) {
-          axisObjects[axisId] = {}
-        }
-        axisObjects[axisId][property] = elem.value
-      }
-
-      for (let axis in axisObjects) {
-        axes.push(new Axis(axisObjects[axis]))
+      for (let index = 0; index < axisElements.length; index++) {
+        let elem = axisElements[index]
+        axes.push(new Axis(elem.dataset.selector, this._axisContext))
       }
 
       this._axesCache = axes

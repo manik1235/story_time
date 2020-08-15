@@ -5,9 +5,7 @@ class AxisController < ApplicationController
   # PATCH/PUT /axis/1.json
   def update
     respond_to do |format|
-      if @axis.update(axis_params)
-        format.json { render :show, status: :ok, location: @axis }
-      else
+      if !@axis.update(axis_params)
         format.json { render json: @axis.errors, status: :unprocessable_entity }
       end
     end

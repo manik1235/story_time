@@ -41,10 +41,7 @@ class MapsController < ApplicationController
   # PATCH/PUT /maps/1.json
   def update
     respond_to do |format|
-      if @map.update(map_params)
-        format.html { redirect_to @map, notice: 'Map was successfully updated.' }
-        format.json { render :show, status: :ok, location: @map }
-      else
+      if !@map.update(map_params)
         format.html { render :edit }
         format.json { render json: @map.errors, status: :unprocessable_entity }
       end

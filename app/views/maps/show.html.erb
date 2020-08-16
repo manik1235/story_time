@@ -10,7 +10,10 @@
   </div>
   <div class="row">
     <div class="col-md-9 pre-scrollable map-view">
-      <div id="map" class="w-100 h-100"></div>
+      <div id="map" class="w-100 h-100">
+        <canvas id="map-component__map-layer" height="<%= @map.height %>" width="<%= @map.width %>" style="position: absolute; left: 0; top: 0; z-index: 0;">
+        </canvas>
+      </div>
     </div>
     <div class="col-md-3">
       <%= render partial: "controls" %>

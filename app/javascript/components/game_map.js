@@ -1,10 +1,11 @@
 import { Axis } from './axis'
+import { HexMap } from './hex_map'
 
 class GameMap {
   constructor(selector) {
     this._selector = selector
     this._axesCache = []
-    this._mapCache
+    this.mapCache
   }
 
   addMap() {
@@ -14,13 +15,8 @@ class GameMap {
       return
     }
 
-    // Add component html to DOM
-    this._addHtmlToDom()
-
-    // Get the canvas context for the map layer and draw the map image
-    this._drawMapImage(
-      document.getElementById('map-component__map-layer').getContext('2d')
-    )
+    // Draw the map image
+    this._map.drawMapImage()
 
     // Draw the grid axes
     this._axes
@@ -30,57 +26,20 @@ class GameMap {
     return document.getElementById(`${this._axisSelector(index)}`).getContext('2d')
   }
 
-  _addHtmlToDom() {
-    this._element.innerHTML = this._html
-  }
-
   get _dataset() {
     return this._element.dataset
-  }
-
-  _drawMapImage(ctx) {
-    var images = require.context('../images', true)
-    var imagePath = (name) => images(name, true)
-
-    var image = new Image()
-
-    image.onload = function() {
-      ctx.drawImage(image, 0, 0)
-    }
-    image.src = imagePath('./maps/' + this._map.background)
   }
 
   get _element() {
     return document.getElementById(this._selector)
   }
 
-  get _html() {
-    let html = this._mapHtml
-
-    for (let index = 0; index < parseInt(this._map.number_of_axes); index++) {
-      html += this._axisHtml(index)
-    }
-
-    return html
-  }
-
   get _map() {
-    let map = {}
-
-    if (this._mapCache) {
-      map = this._mapCache
-    } else {
-      let mapElements = document.getElementsByClassName('js-map-data')
-
-      for (let elem of mapElements) {
-        let id = elem.getAttribute('id').replace('map_', '')
-        map[id] = elem.value
-      }
-
-      this._mapCache = map
+    if (!this.mapCache) {
+      this.mapCache = new HexMap()
     }
 
-    return map
+    return this.mapCache
   }
 
   get _axes() {

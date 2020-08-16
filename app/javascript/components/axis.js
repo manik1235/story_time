@@ -1,9 +1,11 @@
 class Axis {
-  constructor(selector, ctx) {
-    this._selector = selector
-    this._axisContext = ctx
+  constructor(layerElement, formElement, domId) {
+    this.layerElement = layerElement
+    this.formElement = formElement
+    this.domId = domId
+    this._axisContext = layerElement.getContext('2d')
 
-    this._updateAxis()
+    this._updateAxisData()
     this._drawLines(this._axisContext)
     this._addUpdateListener()
   }
@@ -131,17 +133,20 @@ class Axis {
     }
   }
 
-  _updateAxis() {
+  _updateAxisData() {
     // Get the axis data based on the current values of all the input boxes
-    let axisElements = document.getElementsByClassName(this._selector)
+    let formElement = this.formElement
     let axisObject = {}
 
-    for (let elem of axisElements) {
-      let property = elem.getAttribute('name').replace('axis[', '').replace(']', '')
+    let formInputs = formElement.getElementsByClassName('js-input')
 
-      axisObject[property] = elem.value
+    for (let input of formInputs) {
+      let property = input.getAttribute('name').replace('axis[', '').replace(']', '')
+
+      axisObject[property] = input.value
     }
 
+    this.id = axisObject.id
     this.name = axisObject.name
     this.degrees = parseFloat(axisObject.degrees)
     this._xOffset = parseFloat(axisObject.x_offset)

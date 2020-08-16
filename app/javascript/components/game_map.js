@@ -10,8 +10,8 @@ class GameMap {
 
   addMap() {
     // Return early if the element cannot be found
-    if (!this._element) {
-      console.log(`Error: Element with id='${this._selector}' required to be present in the DOM for the GameMap to work.`)
+    if (!this._selector) {
+      console.log(`Error: Element with id ${this._selector} is not found`)
       return
     }
 
@@ -20,18 +20,6 @@ class GameMap {
 
     // Draw the grid axes
     this._axes
-  }
-
-  _axisContext(index) {
-    return document.getElementById(`${this._axisSelector(index)}`).getContext('2d')
-  }
-
-  get _dataset() {
-    return this._element.dataset
-  }
-
-  get _element() {
-    return document.getElementById(this._selector)
   }
 
   get _map() {
@@ -44,22 +32,22 @@ class GameMap {
 
   get _axes() {
     let axes = []
+    let axisLayerElements = document.getElementsByClassName('js-axis-layer')
 
     if (this._axesCache.length === 0) {
-      // Get the axis data based on the current values of all the input boxes
-      let axisElements = document.getElementsByClassName('js-axis-form')
-
-      for (let index = 0; index < axisElements.length; index++) {
-        let elem = axisElements[index]
-        axes.push(new Axis(elem.dataset.selector, this._axisContext(index)))
+      for (let index = 0; index < axisLayerElements.length; index++) {
+        let domId = axisLayerElements[index].dataset.domId
+        axes.push(new Axis(
+          axisLayerElements[index],
+          document.getElementById(domId + '-form'),
+          domId
+        ))
       }
 
       this._axesCache = axes
-    } else {
-      axes = this._axesCache
     }
 
-    return axes
+    return this._axesCache
   }
 }
 

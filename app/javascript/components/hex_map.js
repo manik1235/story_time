@@ -10,6 +10,7 @@ class HexMap {
 
     this.mapProperties = map
     this.background = map.background
+    this.numberOfAxes = map.number_of_axes
   }
 
   drawMapImage() {

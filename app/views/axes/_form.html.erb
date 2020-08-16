@@ -1,4 +1,4 @@
-<%= form_with(model: axis, id: "#{dom_id(axis)}-form", class: "js-axis-form", data: { selector: "js-#{dom_id(axis)}" }) do |form| %>
+<%= form_with(model: axis, id: "#{dom_id(axis)}-form") do |form| %>
   <% if axis.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(axis.errors.count, "error") %> prohibited this axis from being saved:</h2>
@@ -13,57 +13,57 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name, class: "js-#{dom_id(axis)}-input js-input" %>
+    <%= form.text_field :name, class: "js-input" %>
   </div>
 
   <div class="field">
     <%= form.label :degrees %>
-    <%= form.number_field :degrees, class: "js-#{dom_id(axis)}-input js-input" %>
+    <%= form.number_field :degrees, class: "js-input" %>
   </div>
 
   <div class="field">
     <%= form.label :x_offset %>
-    <%= form.number_field :x_offset, class: "js-#{dom_id(axis)}-input js-input" %>
+    <%= form.number_field :x_offset, class: "js-input" %>
   </div>
 
   <div class="field">
     <%= form.label :y_offset %>
-    <%= form.number_field :y_offset, class: "js-#{dom_id(axis)}-input js-input" %>
+    <%= form.number_field :y_offset, class: "js-input" %>
   </div>
 
   <div class="field">
     <%= form.label :hex_diameter %>
-    <%= form.number_field :hex_diameter, class: "js-#{dom_id(axis)}-input js-input" %>
+    <%= form.number_field :hex_diameter, class: "js-input" %>
   </div>
 
   <div class="field">
     <%= form.label :map_width %>
-    <%= form.number_field :map_width, class: "js-#{dom_id(axis)}-input js-input" %>
+    <%= form.number_field :map_width, class: "js-input" %>
   </div>
 
   <div class="field">
     <%= form.label :map_height %>
-    <%= form.number_field :map_height, class: "js-#{dom_id(axis)}-input js-input" %>
+    <%= form.number_field :map_height, class: "js-input" %>
   </div>
 
   <div class="field">
     <%= form.label :dash_filled_length %>
-    <%= form.number_field :dash_filled_length, class: "js-#{dom_id(axis)}-input js-input" %>
+    <%= form.number_field :dash_filled_length, class: "js-input" %>
   </div>
 
   <div class="field">
     <%= form.label :dash_blank_length %>
-    <%= form.number_field :dash_blank_length, class: "js-#{dom_id(axis)}-input js-input" %>
+    <%= form.number_field :dash_blank_length, class: "js-input" %>
   </div>
 
   <div class="field">
     <%= form.label :color %>
-    <%= form.text_field :color, class: "js-#{dom_id(axis)}-input js-input" %>
+    <%= form.text_field :color, class: "js-input" %>
   </div>
 
   <div class="field">
     <%= form.label :map_id %>
-    <%= form.number_field :map_id, class: "js-#{dom_id(axis)}-input js-input" %>
+    <%= form.number_field :map_id, class: "js-input" %>
   </div>
 
   <div class="actions">

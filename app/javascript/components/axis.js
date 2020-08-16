@@ -1,27 +1,27 @@
 class Axis {
-  constructor(layerElement, formElement, domId) {
-    this.layerElement = layerElement
+  constructor(layerElement, formElement) {
     this.formElement = formElement
-    this.domId = domId
-    this._axisContext = layerElement.getContext('2d')
+    this.axisContext = layerElement.getContext('2d')
+  }
 
+  initialize() {
     this._updateAxisData()
-    this._drawLines(this._axisContext)
+    this._drawLines()
     this._addUpdateListener()
   }
 
   // Private
 
   _addUpdateListener() {
-    let elements = document.getElementsByClassName(this._selector)
+    let inputs = this.formElement.getElementsByClassName('js-input')
     let that = this
 
-    for (let index = 0; index < elements.length; index++) {
-      let element = elements[index]
+    for (let index = 0; index < inputs.length; index++) {
+      let element = inputs[index]
       element.addEventListener('change', function(event) {
         // TODO: Use the event to selectively update the proper property
-        that._updateAxis()
-        that._drawLines(that._axisContext)
+        that._updateAxisData()
+        that._drawLines()
       })
     }
   }
@@ -30,10 +30,11 @@ class Axis {
     return [this.dashFilledLength, this.dashBlankLength]
   }
 
-  _drawLines(ctx) {
+  _drawLines() {
+    let ctx = this.axisContext
     var shifted
     var x0 = this._x0
-    var y0 = this._y0
+    var y0 = this.y0
 
     // Clear the old lines from the canvas
     ctx.clearRect(0, 0, this.mapWidth, this.mapHeight)
@@ -135,10 +136,9 @@ class Axis {
 
   _updateAxisData() {
     // Get the axis data based on the current values of all the input boxes
-    let formElement = this.formElement
     let axisObject = {}
 
-    let formInputs = formElement.getElementsByClassName('js-input')
+    let formInputs = this.formElement.getElementsByClassName('js-input')
 
     for (let input of formInputs) {
       let property = input.getAttribute('name').replace('axis[', '').replace(']', '')
@@ -149,8 +149,8 @@ class Axis {
     this.id = axisObject.id
     this.name = axisObject.name
     this.degrees = parseFloat(axisObject.degrees)
-    this._xOffset = parseFloat(axisObject.x_offset)
-    this._y0 = parseFloat(axisObject.y_offset)
+    this.xOffset = parseFloat(axisObject.x_offset)
+    this.y0 = parseFloat(axisObject.y_offset)
     this.hexDiameter = parseFloat(axisObject.hex_diameter)
     this.mapWidth = parseFloat(axisObject.map_width)
     this.mapHeight = parseFloat(axisObject.map_height)
@@ -163,10 +163,10 @@ class Axis {
     if (this._m > 0) {
       // Calculate the extra distance needed to start to the left of the canvas
       //   if the slope is positive
-      return -this.mapHeight / this._m + this._xOffset
+      return -this.mapHeight / this._m + this.xOffset
     } else {
       // Otherwise only the xOffset is needed
-      return this._xOffset
+      return this.xOffset
     }
   }
 
@@ -174,7 +174,7 @@ class Axis {
     if (this._m < 0) {
       // Calculate the extra buffer needed when drawing lines that will pass the
       //   mapWidth boundary
-      return -this._m * this.mapHeight + this._xOffset
+      return -this._m * this.mapHeight + this.xOffset
     } else {
       // No extra buffer needed because the lines will always start on or to the
       //   left of the canvas.

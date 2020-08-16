@@ -4,15 +4,17 @@
   <div class="row">
     <div class="col-12">
       <small>
-        <%= link_to "#{@map.background} #{@map.x}x#{@map.y}x#{@map.z}", edit_map_path(@map) %>
+        <%= link_to "#{@map.background} #{@map.width}x#{@map.height}", edit_map_path(@map) %>
       </small>
     </div>
   </div>
   <div class="row">
     <div class="col-md-9 pre-scrollable map-view">
       <div id="map" class="w-100 h-100">
-        <canvas id="map-component__map-layer" height="<%= @map.height %>" width="<%= @map.width %>" style="position: absolute; left: 0; top: 0; z-index: 0;">
-        </canvas>
+        <%= render partial: 'map' %>
+        <% @map.axes.find_each do |axis| %>
+          <%= render partial: 'axes/axis', locals: { axis: axis } %>
+        <% end %>
       </div>
     </div>
     <div class="col-md-3">

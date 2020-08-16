@@ -2,6 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+.axis-layer {
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.map-layer {
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
 .map-view {
   height: 80vh;
   max-height: 80vh;

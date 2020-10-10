@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_12_180442) do
+ActiveRecord::Schema.define(version: 2020_08_16_000716) do
 
   create_table "axes", force: :cascade do |t|
     t.string "name"
@@ -64,9 +64,8 @@ ActiveRecord::Schema.define(version: 2020_07_12_180442) do
 
   create_table "maps", force: :cascade do |t|
     t.string "background"
-    t.integer "x"
-    t.integer "y"
-    t.integer "z"
+    t.integer "width"
+    t.integer "height"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

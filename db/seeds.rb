@@ -14,7 +14,7 @@ hexes = [{ id: 1, name: "Desert", x: 0, y: 0, z: 0, background: "desert.png", cr
 
 hexes.each { |hex| Hex.create(hex) }
 
-maps = [{ id: 1, background: "tim.jpg", x: 800, y: 800, z: 1, created_at: "2020-06-10 19:49:43", updated_at: "2020-06-10 22:21:23" }]
+maps = [{ id: 1, background: "tim.jpg", width: 800, height: 800, created_at: "2020-06-10 19:49:43", updated_at: "2020-06-10 22:21:23" }]
 
 maps.each { |map| Map.create(map) }
 

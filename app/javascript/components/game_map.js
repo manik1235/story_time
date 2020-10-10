@@ -66,13 +66,13 @@ class GameMap {
 
   get _mapHtml() {
     return `
-      <canvas id="map-component__map-layer" height="800" width="800"
+      <canvas id="map-component__map-layer" class="js-canvas" height="800" width="800"
         style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>`
   }
 
   _axisHtml(index) {
       return `
-      <canvas id="${this._axisSelector(index)}" height="800" width="800"
+      <canvas id="${this._axisSelector(index)}" class="js-canvas" height="800" width="800"
         style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>`
   }
 
